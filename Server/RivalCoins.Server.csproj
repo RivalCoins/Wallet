@@ -12,7 +12,7 @@
     <PackageReference Include="Grpc.AspNetCore" Version="2.43.0" />
     <PackageReference Include="Grpc.AspNetCore.Web" Version="2.43.0" />
     <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0" />
-    <PackageReference Include="RivalCoins.Sdk" Version="0.3.0" />
+    <PackageReference Include="RivalCoins.Sdk" Version="0.4.0" />
 	<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.14.0" />
   </ItemGroup>
 

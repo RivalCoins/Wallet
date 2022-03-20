@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="RivalCoins.Sdk" Version="0.3.0-build-20220311-1" />
+    <PackageReference Include="RivalCoins.Sdk" Version="0.4.0" />
   </ItemGroup>
 
 </Project>
