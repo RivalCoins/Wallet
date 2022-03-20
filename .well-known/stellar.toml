@@ -1,0 +1,37 @@
+ACCOUNTS=[
+"GBPAJJPG4FEEDAI5TTHI4LYJDYKMJSRNG3GWNYC6OFJHVJPZDMOCN527",
+"GBGJO2XI3CIBTCYG2HS6WJMWO5YWVDPK4JCEIKHZQSZBIS45Z2XOJR77"
+]
+VERSION="2.0.0"
+
+[DOCUMENTATION]
+ORG_NAME="Rival Coins"
+#ORG_DBA="Organization DBA"
+ORG_URL="https://rivalcoins.github.io"
+ORG_LOGO="https://meritcasting.github.io/mstile-150x150.png"
+ORG_DESCRIPTION="Let them fight"
+ORG_PHYSICAL_ADDRESS="Chicago, IL"
+ORG_PHYSICAL_ADDRESS_ATTESTATION="https://www.domain.com/address_attestation.jpg"
+#ORG_PHONE_NUMBER="1 (123)-456-7890"
+#ORG_PHONE_NUMBER_ATTESTATION="https://www.domain.com/phone_attestation.jpg"
+#ORG_KEYBASE="accountname"
+#ORG_TWITTER="orgtweet"
+#ORG_GITHUB="orgcode"
+ORG_OFFICIAL_EMAIL="support@domain.com"
+
+[[PRINCIPALS]]
+name="Jerome Bell"
+email="jane@domain.com"
+#keybase="crypto_jane"
+#twitter="crypto_jane"
+#github="crypto_jane"
+#id_photo_hash="be688838ca8686e5c90689bf2ab585cef1137c999b48c70b92f67a5c34dc15697b5d11c982ed6d71be1e1e7f7b4e0733884aa97c3f7a339a8ed03577cf74be09"
+#verification_photo_hash="016ba8c4cfde65af99cb5fa8b8a37e2eb73f481b3ae34991666df2e04feb6c038666ebd1ec2b6f623967756033c702dde5f423f7d47ab6ed1827ff53783731f7"
+
+[[CURRENCIES]]
+code="REFUGECOIN"
+issuer="GBPAJJPG4FEEDAI5TTHI4LYJDYKMJSRNG3GWNYC6OFJHVJPZDMOCN527"
+display_decimals=2
+name="Refuge Coin"
+desc="Refuge Coin is a USD vanity coin that expresses one's support of the City of Refuge project and movement (founded by Min. Jerome Bell)"
+is_asset_anchored=false
