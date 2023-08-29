@@ -1,8 +1,12 @@
-﻿using RivalCoins.Sdk;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
+using RivalCoins.Sdk;
 using stellar_dotnet_sdk;
+using stellar_dotnet_sdk.xdr;
+using Tommy;
 
-const string HorizonUrl = "https://localhost:8001";
-const string RivalCoinsHomeDomain = "https://localhost:32783";
+const string HorizonUrl = "<CHANGE ME>";
+const string RivalCoinsHomeDomain = "<CHANGE ME>";
 const string CurrencyAssetCode = "FakeUSA";
 
 const long UsaSupply = 100L * 1000L * 1000L * 1000L * 1000L;
@@ -14,7 +18,7 @@ await networkFeeFunder.InitializeAsync();
 
 // create currency
 var currencySystem = await RivalCoins.Sdk.Util.CreateCurrencySystemAsync(CurrencyAssetCode, UsaSupply, RivalCoins.Sdk.Util.MaxTrustlineLimit, networkFeeFunder);
-var currency = Asset.CreateNonNativeAsset(CurrencyAssetCode, currencySystem.Issuing.AccountId);
+var currency = stellar_dotnet_sdk.Asset.CreateNonNativeAsset(CurrencyAssetCode, currencySystem.Issuing.AccountId);
 
 // assess Rival Coins founder fee
 var rivalCoinsFounder = new Wallet(HorizonUrl, KeyPair.Random().SecretSeed, RivalCoinsHomeDomain);
@@ -25,7 +29,7 @@ var distributor = new Wallet(HorizonUrl, currencySystem.Distributions.First().Se
 await distributor.InitializeAsync();
 
 var transaction = new TransactionBuilder(distributor.Account.Info)
-    .AddOperation(new ChangeTrustOperation.Builder(ChangeTrustAsset.Create(currency))
+    .AddOperation(new ChangeTrustOperation.Builder(stellar_dotnet_sdk.ChangeTrustAsset.Create(currency))
         .SetSourceAccount(rivalCoinsFounder.Account.Signer!)
         .Build())
     .AddOperation(new PaymentOperation.Builder(rivalCoinsFounder.Account.Info.KeyPair, currency, FounderFee.ToString()).Build())

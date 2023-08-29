@@ -116,6 +116,12 @@ vault kv put secret/rivalcoins/prod/fake-usa \
   wrapper_issuer_seed="<CHANGE ME>" \
   wrapper_distributor_seed="<CHANGE ME>"
 
+vault kv put secret/rivalcoins/dev/fake-usa \
+  issuer_seed="<CHANGE ME>" \
+  distributor_seed="<CHANGE ME>" \
+  wrapper_issuer_seed="<CHANGE ME>" \
+  wrapper_distributor_seed="<CHANGE ME>"
+
 vault policy write mockcompanysite - <<EOF
 path "secret/data/rivalcoins/test/fake-usa" {
   capabilities = ["read"]
@@ -130,6 +136,12 @@ EOF
 
 vault policy write api-prod - <<EOF
 path "secret/data/rivalcoins/prod/fake-usa" {
+  capabilities = ["read"]
+}
+EOF
+
+vault policy write api-dev - <<EOF
+path "secret/data/rivalcoins/dev/fake-usa" {
   capabilities = ["read"]
 }
 EOF
@@ -153,6 +165,11 @@ vault write auth/kubernetes/role/api-prod \
   policies=api-prod \
   bound_service_account_names=api \
   bound_service_account_namespaces=prod
+
+vault write auth/kubernetes/role/api-dev \
+  policies=api-dev \
+  bound_service_account_names=api \
+  bound_service_account_namespaces=dev
 
 exit
 ```

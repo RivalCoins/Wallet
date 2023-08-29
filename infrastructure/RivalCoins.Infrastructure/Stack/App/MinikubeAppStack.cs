@@ -1,4 +1,6 @@
-﻿using Google.Protobuf.WellKnownTypes;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Pulumi;
 using Pulumi.Kubernetes;
 using Pulumi.Kubernetes.Core.V1;
@@ -6,20 +8,10 @@ using Pulumi.Kubernetes.Storage.V1;
 using Pulumi.Kubernetes.Types.Inputs.Apps.V1;
 using Pulumi.Kubernetes.Types.Inputs.Core.V1;
 using Pulumi.Kubernetes.Types.Inputs.Meta.V1;
-using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.IO;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using Microsoft.AspNetCore.Server.IIS.Core;
 
-namespace RivalCoins.Infrastructure.Stack;
+namespace RivalCoins.Infrastructure.Stack.App;
 
-public class DevelopmentStack : AppStack
+public class MinikubeAppStack : AppStack
 {
     private const string MinikubeProfileName = "profile4";
 
@@ -27,7 +19,7 @@ public class DevelopmentStack : AppStack
     private StorageClass _storageClass;
     //private Node[] _nodes;
 
-    public DevelopmentStack(StorageClass persistentStorageClass) : base(persistentStorageClass, null!)
+    public MinikubeAppStack(StorageClass persistentStorageClass) : base(persistentStorageClass, null!)
     {
     }
 

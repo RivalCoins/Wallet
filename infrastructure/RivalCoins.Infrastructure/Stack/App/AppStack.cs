@@ -4,29 +4,16 @@ using Pulumi;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Pulumi.Kubernetes.Types.Inputs.Apps.V1;
 using Pulumi.Kubernetes.Core.V1;
 using Pulumi.Kubernetes.Storage.V1;
-using System.Xml.Linq;
-using Pulumi;
-using Pulumi.Kubernetes.Helm.V3;
-using System.Diagnostics.Metrics;
-using System.Collections.Immutable;
-using System.Runtime.CompilerServices;
-using Pulumi.DigitalOcean;
 using Pulumi.Kubernetes.Apps.V1;
-using Pulumi.Kubernetes.Networking.V1;
-using Pulumi.Kubernetes.Types.Inputs.Networking.V1;
-using Pulumi.KubernetesCertManager;
-using RivalCoins.Infrastructure.Resource;
 using DeploymentArgs = Pulumi.Kubernetes.Types.Inputs.Apps.V1.DeploymentArgs;
 using DeploymentSpecArgs = Pulumi.Kubernetes.Types.Inputs.Apps.V1.DeploymentSpecArgs;
 using Provider = Pulumi.Kubernetes.Provider;
 using VolumeArgs = Pulumi.Kubernetes.Types.Inputs.Core.V1.VolumeArgs;
 
-namespace RivalCoins.Infrastructure.Stack;
+namespace RivalCoins.Infrastructure.Stack.App;
 
 public abstract class AppStack
 {
@@ -37,7 +24,7 @@ public abstract class AppStack
 
     protected AppStack(StorageClass persistentStorageClass, Provider provider)
     {
-        var appNamespace = this.CreateAppNamespace(provider);
+        var appNamespace = CreateAppNamespace(provider);
 
         var horizonLabels = new InputMap<string>
         {
@@ -54,14 +41,14 @@ public abstract class AppStack
             provider,
             appNamespace);
 
-        this.Horizon = ClusterIP(
+        Horizon = ClusterIP(
             horizon,
             StellarQuickStartHorizonPort,
             horizonLabels,
             provider);
-        if(false)
+        if (false)
         {
-            var l1HorizonProxy = HorizonProxy("l1", this.Horizon, horizonProxyLabels, provider);
+            var l1HorizonProxy = HorizonProxy("l1", Horizon, horizonProxyLabels, provider);
             ClusterIP(l1HorizonProxy, 8000, horizonProxyLabels, provider);
             LoadBalancer(
                 "horizon-proxy-l1-lb",
@@ -70,8 +57,13 @@ public abstract class AppStack
                 horizonProxyLabels);
         }
 
-        this.ApiService = Api(this.Horizon, appNamespace, provider).Unsecure;
-        this.Wallet = CreateWallet(appNamespace, provider);
+        if (false && this is DevelopmentStack)
+        {
+            return;
+        }
+
+        ApiService = Api(Horizon, appNamespace, provider).Unsecure;
+        Wallet = CreateWallet(appNamespace, provider);
 
         if (false)
         {
@@ -159,6 +151,12 @@ public abstract class AppStack
         };
 
     protected virtual InputList<VolumeMountArgs>? HorizonProxyVolumeMountArgs() => null;
+    protected virtual InputList<VolumeMountArgs>? HorizonVolumeMountArgs(Input<string> volumeName) =>
+        new VolumeMountArgs()
+        {
+            Name = volumeName,
+            MountPath = "/opt/stellar"
+        };
 
     protected virtual InputList<VolumeArgs>? HorizonProxyVolumeArgs() => null;
 
@@ -206,11 +204,11 @@ public abstract class AppStack
                                     Ports = new ContainerPortArgs() { Name = nameof(PortType.unsecure), ContainerPortValue = 3000 },
                                     Env = new List<EnvVarArgs>
                                     {
-                                        new() { Name = "ASSET_SERVER_URL", Value = Output.Format($"{this.AssetServerUrl}/assetDetails") },
-                                        new() { Name = "HORIZON_URL", Value = this.HorizonUrl },
-                                        new() { Name = "DAPP_URL", Value = this.DappUrl },
-                                        new() { Name = "FAKE_USA_ISSUER", Value = this.FakeUsaIssuerAccount },
-                                        new() { Name = "FAKE_USA_WRAPPER_ISSUER", Value = this.FakeUsaWrapperIssuerAccount },
+                                        new() { Name = "ASSET_SERVER_URL", Value = Output.Format($"{AssetServerUrl}/assetDetails") },
+                                        new() { Name = "HORIZON_URL", Value = HorizonUrl },
+                                        new() { Name = "DAPP_URL", Value = DappUrl },
+                                        new() { Name = "FAKE_USA_ISSUER", Value = FakeUsaIssuerAccount },
+                                        new() { Name = "FAKE_USA_WRAPPER_ISSUER", Value = FakeUsaWrapperIssuerAccount },
                                     }
                                 }
                             },
@@ -383,7 +381,7 @@ public abstract class AppStack
             });
 
         var clusterIp = ClusterIP(api, 8888, appLabels, provider);
-        if(false)
+        if (false)
         {
             var loadBalancer = LoadBalancer($"{api.GetResourceName()}-lb", (api, nameof(PortType.secure)), 8888, appLabels);
         }
@@ -396,7 +394,7 @@ public abstract class AppStack
     protected virtual List<EnvVarArgs> ApiEnvironmentVariables(Service horizon)
         => new List<EnvVarArgs>()
         {
-            new EnvVarArgs { Name = "RIVALCOINS_HOME_DOMAIN", Value = this.RivalCoinsHomeDomain },
+            new EnvVarArgs { Name = "RIVALCOINS_HOME_DOMAIN", Value = RivalCoinsHomeDomain },
             new EnvVarArgs { Name = "L1_HORIZON_URL", Value = Output.Format($"http://{horizon.Metadata.Apply(m => m.Name)}:{horizon.Spec.Apply(s => s.Ports[0].Port)}") },
             new EnvVarArgs { Name = "L2_HORIZON_URL", Value = Output.Format($"http://{horizon.Metadata.Apply(m => m.Name)}:{horizon.Spec.Apply(s => s.Ports[0].Port)}") },
             new EnvVarArgs { Name = "ASPNETCORE_URLS", Value = "http://+" }
@@ -437,7 +435,7 @@ public abstract class AppStack
                 new() { CustomTimeouts = new() { Create = TimeSpan.FromMinutes(5) } });
     }
 
-    private Pulumi.Kubernetes.Apps.V1.StatefulSet CreateHorizonApp(
+    private StatefulSet CreateHorizonApp(
         InputMap<string> appLabels,
         StorageClass persistentStorageClass,
         Provider provider,
@@ -486,11 +484,7 @@ public abstract class AppStack
                                             ContainerPortValue = 8000,
                                         }
                                     },
-                                    VolumeMounts = new VolumeMountArgs()
-                                    {
-                                        Name = HorizonVolumeName,
-                                        MountPath = "/opt/stellar"
-                                    }
+                                    VolumeMounts = HorizonVolumeMountArgs(HorizonVolumeName)!,
                                 }
                             }
                         },
@@ -517,17 +511,17 @@ public abstract class AppStack
                     }
                 }
             },
-            new() 
+            new()
             {
-                CustomTimeouts = new() { Create = TimeSpan.FromMinutes(7) } ,
+                CustomTimeouts = new() { Create = TimeSpan.FromMinutes(7) },
                 Provider = provider,
             });
     }
 
-    private static Pulumi.Kubernetes.Apps.V1.StatefulSet HorizonEphemeral(
+    private static StatefulSet HorizonEphemeral(
         string networkLayer,
         InputMap<string> appLabels,
-        Pulumi.Kubernetes.Provider provider,
+        Provider provider,
         Namespace ns,
         StorageClass persistentStorageClass)
     {
@@ -608,7 +602,7 @@ public abstract class AppStack
             });
     }
 
-    protected static Service ClusterIP(Pulumi.Kubernetes.Apps.V1.Deployment pod, int servicePort, InputMap<string> selector, Pulumi.Kubernetes.Provider provider) =>
+    protected static Service ClusterIP(Pulumi.Kubernetes.Apps.V1.Deployment pod, int servicePort, InputMap<string> selector, Provider provider) =>
         new(pod.GetResourceName(),
             new ServiceArgs()
             {
@@ -621,7 +615,7 @@ public abstract class AppStack
                 {
                     Type = "ClusterIP",
                     Selector = selector,
-                    Ports = new ServicePortArgs 
+                    Ports = new ServicePortArgs
                     {
                         Name = nameof(PortType.unsecure),
                         TargetPort = pod.Spec.Apply(s => s.Template.Spec.Containers[0].Ports.First(p => p.Name == nameof(PortType.unsecure)).ContainerPortValue),
@@ -629,7 +623,7 @@ public abstract class AppStack
                     }
                 }
             },
-            new() 
+            new()
             {
                 CustomTimeouts = new() { Create = TimeSpan.FromSeconds(20) },
                 Provider = provider,
@@ -655,17 +649,17 @@ public abstract class AppStack
                     Ports = new ServicePortArgs { TargetPort = pod.Spec.Apply(s => s.Template.Spec.Containers[0].Ports.First(p => p.Name == nameof(PortType.unsecure)).ContainerPortValue), Port = servicePort }
                 }
             },
-            new() 
+            new()
             {
                 CustomTimeouts = new() { Create = TimeSpan.FromSeconds(20) },
                 Provider = provider,
             });
 
     protected static Service ClusterIPEphermeral(
-        Pulumi.Kubernetes.Apps.V1.StatefulSet pod,
+        StatefulSet pod,
         int servicePort,
         InputMap<string> selector,
-        Pulumi.Kubernetes.Provider provider) =>
+        Provider provider) =>
         new(pod.GetResourceName(),
             new ServiceArgs()
             {

@@ -1,13 +1,10 @@
 ﻿using FsCheck;
-using FsCheck.NUnit;
-using Microsoft.AspNetCore.Http;
 using NUnit.Framework;
-using Pulumi;
-using Pulumi.Kubernetes.Apps.V1;
 using Pulumi.Testing;
-using RivalCoins.Infrastructure.Stack;
 using RivalCoins.Sdk.Test.Core;
 using System.Collections.Immutable;
+using RivalCoins.Infrastructure.Stack;
+using RivalCoins.Infrastructure.Stack.Cluster;
 
 namespace RivalCoins.Infrastructure.Test;
 

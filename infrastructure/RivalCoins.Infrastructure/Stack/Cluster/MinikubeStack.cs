@@ -1,22 +1,13 @@
-﻿using Pulumi;
-using Pulumi.Kubernetes;
-using Pulumi.Kubernetes.Helm.V3;
-using Pulumi.Kubernetes.Storage.V1;
-using Pulumi.Kubernetes.Types.Inputs.Meta.V1;
-using Pulumi.KubernetesCertManager;
-using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Immutable;
+using Pulumi;
 using Pulumi.DigitalOcean;
 using Pulumi.Kubernetes.Core.V1;
+using Pulumi.Kubernetes.Storage.V1;
+using Pulumi.Kubernetes.Types.Inputs.Meta.V1;
+using RivalCoins.Infrastructure.Stack.App;
 using Provider = Pulumi.Kubernetes.Provider;
-using Pulumi.Experimental.Provider;
-using Pulumi.Kubernetes.Types.Inputs.Core.V1;
 
-namespace RivalCoins.Infrastructure.Stack;
+namespace RivalCoins.Infrastructure.Stack.Cluster;
 
 public class MinikubeStack : StackBase
 {
@@ -24,7 +15,7 @@ public class MinikubeStack : StackBase
     {
         var cluster = CreateCluster();
 
-        _ = new DevelopmentStack(this.PersistentStorageClass);
+        _ = new MinikubeAppStack((StorageClass)this.PersistentStorageClass);
     }
 
     [Output]

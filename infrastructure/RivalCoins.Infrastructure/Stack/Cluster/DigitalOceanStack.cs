@@ -1,36 +1,32 @@
-﻿using Pulumi;
-using Pulumi.Kubernetes;
-using Pulumi.Kubernetes.Helm.V3;
-using Pulumi.Kubernetes.Storage.V1;
-using Pulumi.Kubernetes.Types.Inputs.Meta.V1;
-using Pulumi.KubernetesCertManager;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Pulumi;
 using Pulumi.DigitalOcean;
 using Pulumi.Kubernetes.Core.V1;
-using Provider = Pulumi.Kubernetes.Provider;
-using Pulumi.Experimental.Provider;
+using Pulumi.Kubernetes.Helm.V3;
 using Pulumi.Kubernetes.Networking.V1;
-using Pulumi.Kubernetes.Types.Inputs.Core.V1;
-using RivalCoins.Infrastructure.Resource;
+using Pulumi.Kubernetes.Storage.V1;
+using Pulumi.Kubernetes.Types.Inputs.Meta.V1;
 using Pulumi.Kubernetes.Types.Inputs.Networking.V1;
-using System.Diagnostics.Metrics;
+using RivalCoins.Infrastructure.Resource;
+using RivalCoins.Infrastructure.Stack.App;
+using Provider = Pulumi.Kubernetes.Provider;
 
-namespace RivalCoins.Infrastructure.Stack;
+namespace RivalCoins.Infrastructure.Stack.Cluster;
 
 public class DigitalOceanStack : StackBase
 {
     public DigitalOceanStack()
     {
+        var devStack = new DevelopmentStack(this.PersistentStorageClass, this.Provider);
         var testStack = new TestStack(this.PersistentStorageClass, this.Provider);
         var productionStack = new ProductionStack(this.PersistentStorageClass, this.Provider);
 
         var ingressServices = testStack.GetIngressServices(this.IngressNamespace, this.Provider);
         ingressServices.AddRange(productionStack.GetIngressServices(this.IngressNamespace, this.Provider));
+        ingressServices.AddRange(devStack.GetIngressServices(this.IngressNamespace, this.Provider));
         var clusterIssuer = CreateClusterIssuer(this.CertManager, this.Provider);
         Ingress(ingressServices, clusterIssuer, this.Provider, this.IngressNamespace);
     }

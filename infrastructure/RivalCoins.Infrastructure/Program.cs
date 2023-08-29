@@ -1,11 +1,8 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+﻿using Microsoft.Extensions.Hosting;
 using Pulumi;
-using RivalCoins.Infrastructure.Stack;
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
+using RivalCoins.Infrastructure.Stack;
+using RivalCoins.Infrastructure.Stack.Cluster;
 
 Task<int> deployment = null!;
 

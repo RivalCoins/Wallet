@@ -1,18 +1,10 @@
 ﻿using Pulumi;
-using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using Pulumi.Kubernetes;
 using Pulumi.Kubernetes.Core.V1;
 using Pulumi.Kubernetes.Storage.V1;
-using Pulumi.Kubernetes.Types.Inputs.Core.V1;
 using Pulumi.Kubernetes.Types.Inputs.Meta.V1;
 
-namespace RivalCoins.Infrastructure.Stack;
+namespace RivalCoins.Infrastructure.Stack.App;
 
 public class TestStack : DigitalOceanAppStack
 {

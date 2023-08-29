@@ -3,12 +3,11 @@ using Pulumi;
 using Pulumi.Kubernetes.Storage.V1;
 using Provider = Pulumi.Kubernetes.Provider;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Hosting.Server.Features;
 using Pulumi.Kubernetes.Core.V1;
 using Pulumi.Kubernetes.Types.Inputs.Core.V1;
 using Pulumi.Kubernetes.Types.Inputs.Meta.V1;
 
-namespace RivalCoins.Infrastructure.Stack;
+namespace RivalCoins.Infrastructure.Stack.App;
 
 public abstract class DigitalOceanAppStack : AppStack
 {
@@ -17,11 +16,12 @@ public abstract class DigitalOceanAppStack : AppStack
     {
     }
 
-    public List<(Service Service, Output<string> Url)> GetIngressServices(Namespace ingress, Provider provider) => new()
+    public List<(Service Service, Output<string> Url)> GetIngressServices(Namespace ingress, Provider provider) =>
+    new()
     {
-        (ExternalService(this.Horizon, ingress, provider), this.HorizonUrl),
-        (ExternalService(this.ApiService, ingress, provider), this.AssetServerUrl),
-        (ExternalService(this.Wallet, ingress, provider), this.WalletUrl),
+        (ExternalService(Horizon, ingress, provider), HorizonUrl),
+        (ExternalService(ApiService, ingress, provider), AssetServerUrl),
+        (ExternalService(Wallet, ingress, provider), WalletUrl),
     };
 
     protected static Service ExternalService(Service service, Namespace ns, Provider provider)

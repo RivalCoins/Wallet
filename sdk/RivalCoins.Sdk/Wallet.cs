@@ -329,12 +329,17 @@ public record Wallet(
     public static double GetMinimumBalance(double baseReserve, int numEntries, int numSponsoringEntries, int numSponsoredEntries)
         => (2 + numEntries + numSponsoringEntries - numSponsoredEntries) * baseReserve;
 
-    public static async Task<List<(string Name, AssetTypeCreditAlphaNum Asset, string Description, string ImageUri)>> GetRivalCoinsAsync(string rivalCoinsCompanyUrl)
+    /// <summary>
+    ///     Gets Stellar assets issued by an individual or organization, as defined by <paramref name="homeDomain"/>/.well-known/stellar.toml
+    /// </summary>
+    /// <param name="homeDomain">The domain of a Stellar asset issuer</param>
+    /// <returns></returns>
+    public static async Task<List<(string Name, AssetTypeCreditAlphaNum Asset, string Description, string ImageUri)>> GetRivalCoinsAsync(string homeDomain)
     {
         //using var http = new HttpClient();
         var rivalCoins = new List<(string Name, AssetTypeCreditAlphaNum Asset, string Description, string ImageUri)>();
         using var httpClient = new HttpClient();
-        using var reader = new StringReader(await httpClient.GetStringAsync($"{rivalCoinsCompanyUrl}/.well-known/stellar.toml"));
+        using var reader = new StringReader(await httpClient.GetStringAsync($"{homeDomain}/.well-known/stellar.toml"));
         var table = TOML.Parse(reader);
 
         foreach (TomlNode currency in table["CURRENCIES"])
