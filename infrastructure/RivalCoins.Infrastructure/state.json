@@ -1,0 +1,28 @@
+{
+    "version": 3,
+    "deployment": {
+        "manifest": {
+            "time": "2023-06-01T14:32:10.3714946-05:00",
+            "magic": "dc75a7fd4dfb6bd27ce625b15729c1b288cf17b509afffa2f3b8f77d897838f2",
+            "version": "v3.68.0"
+        },
+        "secrets_providers": {
+            "type": "service",
+            "state": {
+                "url": "https://api.pulumi.com",
+                "owner": "RivalCoins",
+                "project": "RivalCoins.Infrastructure",
+                "stack": "dev"
+            }
+        },
+        "resources": [
+            {
+                "urn": "urn:pulumi:dev::RivalCoins.Infrastructure::pulumi:pulumi:Stack::RivalCoins.Infrastructure-dev",
+                "custom": false,
+                "type": "pulumi:pulumi:Stack",
+                "created": "2023-06-01T18:42:22.2118616Z",
+                "modified": "2023-06-01T18:42:22.2118616Z"
+            }
+        ]
+    }
+}

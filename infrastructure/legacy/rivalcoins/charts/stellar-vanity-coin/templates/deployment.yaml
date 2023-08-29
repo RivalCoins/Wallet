@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "stellar-vanity-coin.fullname" . }}
+  labels:
+    {{- include "stellar-vanity-coin.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "stellar-vanity-coin.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+        vault.hashicorp.com/role: "{{ required "You must define the .Values.assetId value!" .Values.assetId }}-{{ required "You must define the .Values.global.network value!" .Values.global.network }}"
+        vault.hashicorp.com/agent-inject-secret-stellar-source-account-seed.txt: "rivalcoins/{{ required "You must define the .Values.global.network value!" .Values.global.network }}/stellar-trade-bot/config"
+        vault.hashicorp.com/agent-inject-secret-trader-account-seed.txt: "rivalcoins/{{ required "You must define the .Values.global.network value!" .Values.global.network }}/{{ required "You must define the .Values.assetId value!" .Values.assetId }}/config"
+        vault.hashicorp.com/agent-inject-template-trader-account-seed.txt: |
+          {{`{{- with secret `}}"rivalcoins/data/{{ required "You must define the .Values.global.network value!" .Values.global.network }}/{{ required "You must define the .Values.assetId value!" .Values.assetId }}/config" -}}{{`
+          TRADING_SECRET_SEED="{{ .Data.data.trader_account_seed }}"
+          {{- end -}}`}}
+        checksum/config: {{ include (print $.Template.BasePath "/configMap.yaml") . | sha256sum }}
+      labels:
+        {{- include "stellar-vanity-coin.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ required "You must define the .Values.assetId value!" .Values.assetId }}-stellar-vanity-coin
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      nodeSelector:
+        doks.digitalocean.com/node-pool: pool-vanity-coins
+      containers:
+        - name: {{ required "You must define the .Values.assetId value!" .Values.assetId }}-vanity-coin
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ["/bin/bash"]
+          args:
+              - -c 
+              - >-
+                cd /vault/secrets &&
+                rm -f trader-config-secrets.txt &&
+                rm -f {{ required "You must define the .Values.assetId value!" .Values.assetId }}-countering-{{ .Values.baseAssetCode | default .Values.global.baseAssetCode }}-trader.cfg &&
+                cat trader-account-seed.txt >> trader-config-secrets.txt &&
+                echo "" >> trader-config-secrets.txt &&
+                echo "" >> trader-config-secrets.txt &&
+                cat trader-config-secrets.txt /var/lib/config/{{ required "You must define the .Values.assetId value!" .Values.assetId }}-countering-{{ .Values.baseAssetCode | default .Values.global.baseAssetCode }}-trader.cfg > {{ required "You must define the .Values.assetId value!" .Values.assetId }}-countering-{{ .Values.baseAssetCode | default .Values.global.baseAssetCode }}-trader.cfg &&
+                /bin/kelp trade --botConf /vault/secrets/{{ required "You must define the .Values.assetId value!" .Values.assetId }}-countering-{{ .Values.baseAssetCode | default .Values.global.baseAssetCode }}-trader.cfg \
+                  --strategy balanced \
+                  --stratConf /var/lib/config/{{ required "You must define the .Values.assetId value!" .Values.assetId }}-vanity-coin-strategy.cfg \
+                  --no-headers
+          volumeMounts:
+          - name: config-volume
+            mountPath: /var/lib/config
+          resources:
+            requests:
+              cpu: 100m
+      imagePullSecrets:
+        - name: registry-rivalcoins
+      volumes:
+        - name: config-volume
+          configMap:
+            name: {{ required "You must define the .Values.assetId value!" .Values.assetId }}-trader-config

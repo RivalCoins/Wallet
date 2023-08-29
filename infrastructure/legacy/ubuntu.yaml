@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ubuntu
+spec:
+  selector:
+    matchLabels:
+      app: ubuntu
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ubuntu
+    spec:
+      containers:
+      - name: ubuntu
+        # image: ubuntu:20.04
+        image: registry.digitalocean.com/rivalcoins/rivalcoins-stellar-horizon:v0.1.1.5
+        command: ["/bin/sleep","infinity"]

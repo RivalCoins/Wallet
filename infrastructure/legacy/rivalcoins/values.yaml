@@ -1,0 +1,70 @@
+global:
+  horizonUrl: https://horizon.stellar.org
+  network: mainnet
+  baseAssetCode: MONEY
+  baseAssetIssuer: GA2KQTETIRREL66P64GV6KCVICPULLDVHWJDZSIJKDLIAGBXUCIZ6P6E
+
+##########################################################################
+# Production Coins
+##########################################################################
+jeromebellsr:
+  assetId: jeromebellsr
+  assetCode: JeromeBellSr
+  assetIssuer: GDZM373EVKO6PHDHTZFUOHYQU4DBEOJE5REAVCPMQRFZ756FCYI5IAT7
+
+primenation:
+  assetId: primenation
+  assetCode: PrimeNation
+  assetIssuer: GCZPEF34IH53B6UUHM56E622JE6XNON6IQOHC3CHTBV67DKVQPUN6R3H
+
+# Olympics
+usa:
+  assetId: usa
+  assetCode: USA
+  assetIssuer: GCQPF34D4NP66RYULISYRSBS52M5FFZ2JVJ4LMQTQXDI2XGP6UDSE3IB
+
+china:
+  assetId: china
+  assetCode: China
+  assetIssuer: GDC2AUHRFU7RT72LJOF76KUQM52EDCVXYE5MGVJNBBJQCLODI4VJT7HK
+
+canada:
+  assetId: canada
+  assetCode: Canada
+  assetIssuer: GBNOXC5SNVPGA4EY4V5BEKGFE33BQYD3E6RA6JVWUMLPANOCPDAKJGXG
+
+afghanistan:
+  assetId: afghanistan
+  assetCode: Afghanistan
+  assetIssuer: GCXX3BWD4MJYOTVUDXUEKJ5S5XWBYB7I4HKSIXFHK72E5BQ5MQP4Y335
+
+thegambia:
+  assetId: thegambia
+  assetCode: TheGambia
+  assetIssuer: GBFLYATU4XSA4C32ADD3UA7XPUFRT4XHI4X5JGV2PKTOEX7IY6SKIWQL
+
+nmacedonia:
+  assetId: nmacedonia
+  assetCode: NMacedonia
+  assetIssuer: GB6XGIAEKHNBDVDUVTOD7LLRY6T2JXVZ62E6HS7QPCSEB3V6CA64PJTW
+
+# Gossip Girl (2007)
+jhumphrey:
+  assetId: jhumphrey
+  assetCode: JHumphrey
+  assetIssuer: GBHFAHBOQ7PPF4XSN25VIDEMZGCV26CCSVXZIISLPBW64R77OFXVDYMV
+
+# US States
+illinois:
+  assetId: illinois
+  assetCode: Illinois
+  assetIssuer: GB57DDB4F37XEUHCEPARG7ZE4HH3A5XTZWZX4NAOUFUXU4BSN72ZCUVG
+
+sschluter:
+  assetId: sschluter
+  assetCode: SSchluter
+  assetIssuer: GA3TAX4CIUCG6YQU24WSS3YSHWQAI7BLJ2RT7QD54ZWQF7GEL2II7TW7
+  baseAssetCode: Illinois
+  baseAssetIssuer: GB57DDB4F37XEUHCEPARG7ZE4HH3A5XTZWZX4NAOUFUXU4BSN72ZCUVG
+  level1Price: "0.0"
+  level2Price: "0.0000001"

@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33712.159
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RivalCoins.MockCompanySite", "RivalCoins.MockCompanySite\RivalCoins.MockCompanySite.csproj", "{2410481E-9159-4D10-ADE8-AFB1521BA4F7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RivalCoins.Sdk", "..\..\sdk\RivalCoins.Sdk\RivalCoins.Sdk.csproj", "{93C0E279-397C-453E-9AE2-441075711D7F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2410481E-9159-4D10-ADE8-AFB1521BA4F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2410481E-9159-4D10-ADE8-AFB1521BA4F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2410481E-9159-4D10-ADE8-AFB1521BA4F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2410481E-9159-4D10-ADE8-AFB1521BA4F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93C0E279-397C-453E-9AE2-441075711D7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93C0E279-397C-453E-9AE2-441075711D7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93C0E279-397C-453E-9AE2-441075711D7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93C0E279-397C-453E-9AE2-441075711D7F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AE5DF20E-6779-4BAB-B097-D42A70F74E17}
+	EndGlobalSection
+EndGlobal

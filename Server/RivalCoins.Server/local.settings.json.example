@@ -1,0 +1,8 @@
+﻿{
+  "AzureFormRecognizerApiKey": null,
+  "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+  "FUNCTIONS_WORKER_RUNTIME": "dotnet",
+  "AirdropConfig:AirdropAccountSeed": "<CHANGE ME>",
+  "PinwheelConfig:ApiKey": "<CHANGE ME>",
+  "PinwheelConfig:EnvironmentUrl": "<CHANGE ME>",
+}

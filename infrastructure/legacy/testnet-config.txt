@@ -1,0 +1,1705 @@
+---
+# Source: rivalcoins/charts/afghanistan/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: afghanistan-stellar-vanity-coin
+  labels:
+    helm.sh/chart: afghanistan-0.1.0
+    app.kubernetes.io/name: afghanistan
+    app.kubernetes.io/instance: rivalcoins
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+---
+# Source: rivalcoins/charts/canada/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: canada-stellar-vanity-coin
+  labels:
+    helm.sh/chart: canada-0.1.0
+    app.kubernetes.io/name: canada
+    app.kubernetes.io/instance: rivalcoins
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+---
+# Source: rivalcoins/charts/china/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: china-stellar-vanity-coin
+  labels:
+    helm.sh/chart: china-0.1.0
+    app.kubernetes.io/name: china
+    app.kubernetes.io/instance: rivalcoins
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+---
+# Source: rivalcoins/charts/illinois/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: illinois-stellar-vanity-coin
+  labels:
+    helm.sh/chart: illinois-0.1.0
+    app.kubernetes.io/name: illinois
+    app.kubernetes.io/instance: rivalcoins
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+---
+# Source: rivalcoins/charts/jeromebellsr/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: jeromebellsr-stellar-vanity-coin
+  labels:
+    helm.sh/chart: jeromebellsr-0.1.0
+    app.kubernetes.io/name: jeromebellsr
+    app.kubernetes.io/instance: rivalcoins
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+---
+# Source: rivalcoins/charts/jhumphrey/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: jhumphrey-stellar-vanity-coin
+  labels:
+    helm.sh/chart: jhumphrey-0.1.0
+    app.kubernetes.io/name: jhumphrey
+    app.kubernetes.io/instance: rivalcoins
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+---
+# Source: rivalcoins/charts/nmacedonia/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: nmacedonia-stellar-vanity-coin
+  labels:
+    helm.sh/chart: nmacedonia-0.1.0
+    app.kubernetes.io/name: nmacedonia
+    app.kubernetes.io/instance: rivalcoins
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+---
+# Source: rivalcoins/charts/primenation/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: primenation-stellar-vanity-coin
+  labels:
+    helm.sh/chart: primenation-0.1.0
+    app.kubernetes.io/name: primenation
+    app.kubernetes.io/instance: rivalcoins
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+---
+# Source: rivalcoins/charts/sschluter/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: sschluter-stellar-vanity-coin
+  labels:
+    helm.sh/chart: sschluter-0.1.0
+    app.kubernetes.io/name: sschluter
+    app.kubernetes.io/instance: rivalcoins
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+---
+# Source: rivalcoins/charts/thegambia/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: thegambia-stellar-vanity-coin
+  labels:
+    helm.sh/chart: thegambia-0.1.0
+    app.kubernetes.io/name: thegambia
+    app.kubernetes.io/instance: rivalcoins
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+---
+# Source: rivalcoins/charts/usa/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: usa-stellar-vanity-coin
+  labels:
+    helm.sh/chart: usa-0.1.0
+    app.kubernetes.io/name: usa
+    app.kubernetes.io/instance: rivalcoins
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+---
+# Source: rivalcoins/charts/afghanistan/templates/configMap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: afghanistan-trader-config
+  namespace: mainnet
+data:
+  afghanistan-countering-MONEY-trader.cfg: |
+    ASSET_CODE_A="Afghanistan"
+    ISSUER_A="GCXX3BWD4MJYOTVUDXUEKJ5S5XWBYB7I4HKSIXFHK72E5BQ5MQP4Y335"
+
+    ASSET_CODE_B="MONEY"
+    ISSUER_B="GA2KQTETIRREL66P64GV6KCVICPULLDVHWJDZSIJKDLIAGBXUCIZ6P6E"
+
+    TICK_INTERVAL_SECONDS=300
+    MAX_TICK_DELAY_MILLIS=0
+    SUBMIT_MODE="both"
+    DELETE_CYCLES_THRESHOLD=0
+    FILL_TRACKER_SLEEP_MILLIS=150000
+    FILL_TRACKER_DELETE_CYCLES_THRESHOLD=0
+    HORIZON_URL="https://horizon.stellar.org"
+
+    [FEE]
+    CAPACITY_TRIGGER=0.8
+    PERCENTILE=90
+    MAX_OP_FEE_STROOPS=5000  
+  afghanistan-vanity-coin-strategy.cfg: |
+    DATA_TYPE_A="fixed"
+    DATA_FEED_A_URL="1.0"
+
+    DATA_TYPE_B="fixed"
+    DATA_FEED_B_URL="1.0"
+
+    PRICE_TOLERANCE=0.0
+    AMOUNT_TOLERANCE=0.0
+
+    AMOUNT_OF_A_BASE=1.0
+
+    RATE_OFFSET_PERCENT=0.0
+    RATE_OFFSET=0.0
+    RATE_OFFSET_PERCENT_FIRST=true
+
+    [[LEVELS]]
+    SPREAD=0.001 # distance from mid price = 0.10%, i.e. bid/ask spread = 0.2%
+    AMOUNT=500.0   # multiple of base amount = 10.0 * 100 units of base asset
+
+    [[LEVELS]]
+    SPREAD=0.0011 # distance from mid price = 0.10%, i.e. bid/ask spread = 0.2%
+    AMOUNT=500.0   # multiple of base amount = 10.0 * 100 units of base asset
+---
+# Source: rivalcoins/charts/canada/templates/configMap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: canada-trader-config
+  namespace: mainnet
+data:
+  canada-countering-MONEY-trader.cfg: |
+    ASSET_CODE_A="Canada"
+    ISSUER_A="GBNOXC5SNVPGA4EY4V5BEKGFE33BQYD3E6RA6JVWUMLPANOCPDAKJGXG"
+
+    ASSET_CODE_B="MONEY"
+    ISSUER_B="GA2KQTETIRREL66P64GV6KCVICPULLDVHWJDZSIJKDLIAGBXUCIZ6P6E"
+
+    TICK_INTERVAL_SECONDS=300
+    MAX_TICK_DELAY_MILLIS=0
+    SUBMIT_MODE="both"
+    DELETE_CYCLES_THRESHOLD=0
+    FILL_TRACKER_SLEEP_MILLIS=150000
+    FILL_TRACKER_DELETE_CYCLES_THRESHOLD=0
+    HORIZON_URL="https://horizon.stellar.org"
+
+    [FEE]
+    CAPACITY_TRIGGER=0.8
+    PERCENTILE=90
+    MAX_OP_FEE_STROOPS=5000  
+  canada-vanity-coin-strategy.cfg: |
+    DATA_TYPE_A="fixed"
+    DATA_FEED_A_URL="1.0"
+
+    DATA_TYPE_B="fixed"
+    DATA_FEED_B_URL="1.0"
+
+    PRICE_TOLERANCE=0.0
+    AMOUNT_TOLERANCE=0.0
+
+    AMOUNT_OF_A_BASE=1.0
+
+    RATE_OFFSET_PERCENT=0.0
+    RATE_OFFSET=0.0
+    RATE_OFFSET_PERCENT_FIRST=true
+
+    [[LEVELS]]
+    SPREAD=0.001 # distance from mid price = 0.10%, i.e. bid/ask spread = 0.2%
+    AMOUNT=500.0   # multiple of base amount = 10.0 * 100 units of base asset
+
+    [[LEVELS]]
+    SPREAD=0.0011 # distance from mid price = 0.10%, i.e. bid/ask spread = 0.2%
+    AMOUNT=500.0   # multiple of base amount = 10.0 * 100 units of base asset
+---
+# Source: rivalcoins/charts/china/templates/configMap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: china-trader-config
+  namespace: mainnet
+data:
+  china-countering-MONEY-trader.cfg: |
+    ASSET_CODE_A="China"
+    ISSUER_A="GDC2AUHRFU7RT72LJOF76KUQM52EDCVXYE5MGVJNBBJQCLODI4VJT7HK"
+
+    ASSET_CODE_B="MONEY"
+    ISSUER_B="GA2KQTETIRREL66P64GV6KCVICPULLDVHWJDZSIJKDLIAGBXUCIZ6P6E"
+
+    TICK_INTERVAL_SECONDS=300
+    MAX_TICK_DELAY_MILLIS=0
+    SUBMIT_MODE="both"
+    DELETE_CYCLES_THRESHOLD=0
+    FILL_TRACKER_SLEEP_MILLIS=150000
+    FILL_TRACKER_DELETE_CYCLES_THRESHOLD=0
+    HORIZON_URL="https://horizon.stellar.org"
+
+    [FEE]
+    CAPACITY_TRIGGER=0.8
+    PERCENTILE=90
+    MAX_OP_FEE_STROOPS=5000  
+  china-vanity-coin-strategy.cfg: |
+    DATA_TYPE_A="fixed"
+    DATA_FEED_A_URL="1.0"
+
+    DATA_TYPE_B="fixed"
+    DATA_FEED_B_URL="1.0"
+
+    PRICE_TOLERANCE=0.0
+    AMOUNT_TOLERANCE=0.0
+
+    AMOUNT_OF_A_BASE=1.0
+
+    RATE_OFFSET_PERCENT=0.0
+    RATE_OFFSET=0.0
+    RATE_OFFSET_PERCENT_FIRST=true
+
+    [[LEVELS]]
+    SPREAD=0.001 # distance from mid price = 0.10%, i.e. bid/ask spread = 0.2%
+    AMOUNT=500.0   # multiple of base amount = 10.0 * 100 units of base asset
+
+    [[LEVELS]]
+    SPREAD=0.0011 # distance from mid price = 0.10%, i.e. bid/ask spread = 0.2%
+    AMOUNT=500.0   # multiple of base amount = 10.0 * 100 units of base asset
+---
+# Source: rivalcoins/charts/illinois/templates/configMap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: illinois-trader-config
+  namespace: mainnet
+data:
+  illinois-countering-MONEY-trader.cfg: |
+    ASSET_CODE_A="Illinois"
+    ISSUER_A="GB57DDB4F37XEUHCEPARG7ZE4HH3A5XTZWZX4NAOUFUXU4BSN72ZCUVG"
+
+    ASSET_CODE_B="MONEY"
+    ISSUER_B="GA2KQTETIRREL66P64GV6KCVICPULLDVHWJDZSIJKDLIAGBXUCIZ6P6E"
+
+    TICK_INTERVAL_SECONDS=300
+    MAX_TICK_DELAY_MILLIS=0
+    SUBMIT_MODE="both"
+    DELETE_CYCLES_THRESHOLD=0
+    FILL_TRACKER_SLEEP_MILLIS=150000
+    FILL_TRACKER_DELETE_CYCLES_THRESHOLD=0
+    HORIZON_URL="https://horizon.stellar.org"
+
+    [FEE]
+    CAPACITY_TRIGGER=0.8
+    PERCENTILE=90
+    MAX_OP_FEE_STROOPS=5000  
+  illinois-vanity-coin-strategy.cfg: |
+    DATA_TYPE_A="fixed"
+    DATA_FEED_A_URL="1.0"
+
+    DATA_TYPE_B="fixed"
+    DATA_FEED_B_URL="1.0"
+
+    PRICE_TOLERANCE=0.0
+    AMOUNT_TOLERANCE=0.0
+
+    AMOUNT_OF_A_BASE=1.0
+
+    RATE_OFFSET_PERCENT=0.0
+    RATE_OFFSET=0.0
+    RATE_OFFSET_PERCENT_FIRST=true
+
+    [[LEVELS]]
+    SPREAD=0.001 # distance from mid price = 0.10%, i.e. bid/ask spread = 0.2%
+    AMOUNT=500.0   # multiple of base amount = 10.0 * 100 units of base asset
+
+    [[LEVELS]]
+    SPREAD=0.0011 # distance from mid price = 0.10%, i.e. bid/ask spread = 0.2%
+    AMOUNT=500.0   # multiple of base amount = 10.0 * 100 units of base asset
+---
+# Source: rivalcoins/charts/jeromebellsr/templates/configMap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jeromebellsr-trader-config
+  namespace: mainnet
+data:
+  jeromebellsr-countering-MONEY-trader.cfg: |
+    ASSET_CODE_A="JeromeBellSr"
+    ISSUER_A="GDZM373EVKO6PHDHTZFUOHYQU4DBEOJE5REAVCPMQRFZ756FCYI5IAT7"
+
+    ASSET_CODE_B="MONEY"
+    ISSUER_B="GA2KQTETIRREL66P64GV6KCVICPULLDVHWJDZSIJKDLIAGBXUCIZ6P6E"
+
+    TICK_INTERVAL_SECONDS=300
+    MAX_TICK_DELAY_MILLIS=0
+    SUBMIT_MODE="both"
+    DELETE_CYCLES_THRESHOLD=0
+    FILL_TRACKER_SLEEP_MILLIS=150000
+    FILL_TRACKER_DELETE_CYCLES_THRESHOLD=0
+    HORIZON_URL="https://horizon.stellar.org"
+
+    [FEE]
+    CAPACITY_TRIGGER=0.8
+    PERCENTILE=90
+    MAX_OP_FEE_STROOPS=5000  
+  jeromebellsr-vanity-coin-strategy.cfg: |
+    DATA_TYPE_A="fixed"
+    DATA_FEED_A_URL="1.0"
+
+    DATA_TYPE_B="fixed"
+    DATA_FEED_B_URL="1.0"
+
+    PRICE_TOLERANCE=0.0
+    AMOUNT_TOLERANCE=0.0
+
+    AMOUNT_OF_A_BASE=1.0
+
+    RATE_OFFSET_PERCENT=0.0
+    RATE_OFFSET=0.0
+    RATE_OFFSET_PERCENT_FIRST=true
+
+    [[LEVELS]]
+    SPREAD=0.001 # distance from mid price = 0.10%, i.e. bid/ask spread = 0.2%
+    AMOUNT=500.0   # multiple of base amount = 10.0 * 100 units of base asset
+
+    [[LEVELS]]
+    SPREAD=0.0011 # distance from mid price = 0.10%, i.e. bid/ask spread = 0.2%
+    AMOUNT=500.0   # multiple of base amount = 10.0 * 100 units of base asset
+---
+# Source: rivalcoins/charts/jhumphrey/templates/configMap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jhumphrey-trader-config
+  namespace: mainnet
+data:
+  jhumphrey-countering-MONEY-trader.cfg: |
+    ASSET_CODE_A="JHumphrey"
+    ISSUER_A="GBHFAHBOQ7PPF4XSN25VIDEMZGCV26CCSVXZIISLPBW64R77OFXVDYMV"
+
+    ASSET_CODE_B="MONEY"
+    ISSUER_B="GA2KQTETIRREL66P64GV6KCVICPULLDVHWJDZSIJKDLIAGBXUCIZ6P6E"
+
+    TICK_INTERVAL_SECONDS=300
+    MAX_TICK_DELAY_MILLIS=0
+    SUBMIT_MODE="both"
+    DELETE_CYCLES_THRESHOLD=0
+    FILL_TRACKER_SLEEP_MILLIS=150000
+    FILL_TRACKER_DELETE_CYCLES_THRESHOLD=0
+    HORIZON_URL="https://horizon.stellar.org"
+
+    [FEE]
+    CAPACITY_TRIGGER=0.8
+    PERCENTILE=90
+    MAX_OP_FEE_STROOPS=5000  
+  jhumphrey-vanity-coin-strategy.cfg: |
+    DATA_TYPE_A="fixed"
+    DATA_FEED_A_URL="1.0"
+
+    DATA_TYPE_B="fixed"
+    DATA_FEED_B_URL="1.0"
+
+    PRICE_TOLERANCE=0.0
+    AMOUNT_TOLERANCE=0.0
+
+    AMOUNT_OF_A_BASE=1.0
+
+    RATE_OFFSET_PERCENT=0.0
+    RATE_OFFSET=0.0
+    RATE_OFFSET_PERCENT_FIRST=true
+
+    [[LEVELS]]
+    SPREAD=0.001 # distance from mid price = 0.10%, i.e. bid/ask spread = 0.2%
+    AMOUNT=500.0   # multiple of base amount = 10.0 * 100 units of base asset
+
+    [[LEVELS]]
+    SPREAD=0.0011 # distance from mid price = 0.10%, i.e. bid/ask spread = 0.2%
+    AMOUNT=500.0   # multiple of base amount = 10.0 * 100 units of base asset
+---
+# Source: rivalcoins/charts/nmacedonia/templates/configMap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nmacedonia-trader-config
+  namespace: mainnet
+data:
+  nmacedonia-countering-MONEY-trader.cfg: |
+    ASSET_CODE_A="NMacedonia"
+    ISSUER_A="GB6XGIAEKHNBDVDUVTOD7LLRY6T2JXVZ62E6HS7QPCSEB3V6CA64PJTW"
+
+    ASSET_CODE_B="MONEY"
+    ISSUER_B="GA2KQTETIRREL66P64GV6KCVICPULLDVHWJDZSIJKDLIAGBXUCIZ6P6E"
+
+    TICK_INTERVAL_SECONDS=300
+    MAX_TICK_DELAY_MILLIS=0
+    SUBMIT_MODE="both"
+    DELETE_CYCLES_THRESHOLD=0
+    FILL_TRACKER_SLEEP_MILLIS=150000
+    FILL_TRACKER_DELETE_CYCLES_THRESHOLD=0
+    HORIZON_URL="https://horizon.stellar.org"
+
+    [FEE]
+    CAPACITY_TRIGGER=0.8
+    PERCENTILE=90
+    MAX_OP_FEE_STROOPS=5000  
+  nmacedonia-vanity-coin-strategy.cfg: |
+    DATA_TYPE_A="fixed"
+    DATA_FEED_A_URL="1.0"
+
+    DATA_TYPE_B="fixed"
+    DATA_FEED_B_URL="1.0"
+
+    PRICE_TOLERANCE=0.0
+    AMOUNT_TOLERANCE=0.0
+
+    AMOUNT_OF_A_BASE=1.0
+
+    RATE_OFFSET_PERCENT=0.0
+    RATE_OFFSET=0.0
+    RATE_OFFSET_PERCENT_FIRST=true
+
+    [[LEVELS]]
+    SPREAD=0.001 # distance from mid price = 0.10%, i.e. bid/ask spread = 0.2%
+    AMOUNT=500.0   # multiple of base amount = 10.0 * 100 units of base asset
+
+    [[LEVELS]]
+    SPREAD=0.0011 # distance from mid price = 0.10%, i.e. bid/ask spread = 0.2%
+    AMOUNT=500.0   # multiple of base amount = 10.0 * 100 units of base asset
+---
+# Source: rivalcoins/charts/primenation/templates/configMap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: primenation-trader-config
+  namespace: mainnet
+data:
+  primenation-countering-MONEY-trader.cfg: |
+    ASSET_CODE_A="PrimeNation"
+    ISSUER_A="GCZPEF34IH53B6UUHM56E622JE6XNON6IQOHC3CHTBV67DKVQPUN6R3H"
+
+    ASSET_CODE_B="MONEY"
+    ISSUER_B="GA2KQTETIRREL66P64GV6KCVICPULLDVHWJDZSIJKDLIAGBXUCIZ6P6E"
+
+    TICK_INTERVAL_SECONDS=300
+    MAX_TICK_DELAY_MILLIS=0
+    SUBMIT_MODE="both"
+    DELETE_CYCLES_THRESHOLD=0
+    FILL_TRACKER_SLEEP_MILLIS=150000
+    FILL_TRACKER_DELETE_CYCLES_THRESHOLD=0
+    HORIZON_URL="https://horizon.stellar.org"
+
+    [FEE]
+    CAPACITY_TRIGGER=0.8
+    PERCENTILE=90
+    MAX_OP_FEE_STROOPS=5000  
+  primenation-vanity-coin-strategy.cfg: |
+    DATA_TYPE_A="fixed"
+    DATA_FEED_A_URL="1.0"
+
+    DATA_TYPE_B="fixed"
+    DATA_FEED_B_URL="1.0"
+
+    PRICE_TOLERANCE=0.0
+    AMOUNT_TOLERANCE=0.0
+
+    AMOUNT_OF_A_BASE=1.0
+
+    RATE_OFFSET_PERCENT=0.0
+    RATE_OFFSET=0.0
+    RATE_OFFSET_PERCENT_FIRST=true
+
+    [[LEVELS]]
+    SPREAD=0.001 # distance from mid price = 0.10%, i.e. bid/ask spread = 0.2%
+    AMOUNT=500.0   # multiple of base amount = 10.0 * 100 units of base asset
+
+    [[LEVELS]]
+    SPREAD=0.0011 # distance from mid price = 0.10%, i.e. bid/ask spread = 0.2%
+    AMOUNT=500.0   # multiple of base amount = 10.0 * 100 units of base asset
+---
+# Source: rivalcoins/charts/sschluter/templates/configMap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sschluter-trader-config
+  namespace: mainnet
+data:
+  sschluter-countering-Illinois-trader.cfg: |
+    ASSET_CODE_A="SSchluter"
+    ISSUER_A="GA3TAX4CIUCG6YQU24WSS3YSHWQAI7BLJ2RT7QD54ZWQF7GEL2II7TW7"
+
+    ASSET_CODE_B="Illinois"
+    ISSUER_B="GB57DDB4F37XEUHCEPARG7ZE4HH3A5XTZWZX4NAOUFUXU4BSN72ZCUVG"
+
+    TICK_INTERVAL_SECONDS=300
+    MAX_TICK_DELAY_MILLIS=0
+    SUBMIT_MODE="both"
+    DELETE_CYCLES_THRESHOLD=0
+    FILL_TRACKER_SLEEP_MILLIS=150000
+    FILL_TRACKER_DELETE_CYCLES_THRESHOLD=0
+    HORIZON_URL="https://horizon.stellar.org"
+
+    [FEE]
+    CAPACITY_TRIGGER=0.8
+    PERCENTILE=90
+    MAX_OP_FEE_STROOPS=5000  
+  sschluter-vanity-coin-strategy.cfg: |
+    DATA_TYPE_A="fixed"
+    DATA_FEED_A_URL="1.0"
+
+    DATA_TYPE_B="fixed"
+    DATA_FEED_B_URL="1.0"
+
+    PRICE_TOLERANCE=0.0
+    AMOUNT_TOLERANCE=0.0
+
+    AMOUNT_OF_A_BASE=1.0
+
+    RATE_OFFSET_PERCENT=0.0
+    RATE_OFFSET=0.0
+    RATE_OFFSET_PERCENT_FIRST=true
+
+    [[LEVELS]]
+    SPREAD=0.0 # distance from mid price = 0.10%, i.e. bid/ask spread = 0.2%
+    AMOUNT=500.0   # multiple of base amount = 10.0 * 100 units of base asset
+
+    [[LEVELS]]
+    SPREAD=0.0000001 # distance from mid price = 0.10%, i.e. bid/ask spread = 0.2%
+    AMOUNT=500.0   # multiple of base amount = 10.0 * 100 units of base asset
+---
+# Source: rivalcoins/charts/thegambia/templates/configMap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: thegambia-trader-config
+  namespace: mainnet
+data:
+  thegambia-countering-MONEY-trader.cfg: |
+    ASSET_CODE_A="TheGambia"
+    ISSUER_A="GBFLYATU4XSA4C32ADD3UA7XPUFRT4XHI4X5JGV2PKTOEX7IY6SKIWQL"
+
+    ASSET_CODE_B="MONEY"
+    ISSUER_B="GA2KQTETIRREL66P64GV6KCVICPULLDVHWJDZSIJKDLIAGBXUCIZ6P6E"
+
+    TICK_INTERVAL_SECONDS=300
+    MAX_TICK_DELAY_MILLIS=0
+    SUBMIT_MODE="both"
+    DELETE_CYCLES_THRESHOLD=0
+    FILL_TRACKER_SLEEP_MILLIS=150000
+    FILL_TRACKER_DELETE_CYCLES_THRESHOLD=0
+    HORIZON_URL="https://horizon.stellar.org"
+
+    [FEE]
+    CAPACITY_TRIGGER=0.8
+    PERCENTILE=90
+    MAX_OP_FEE_STROOPS=5000  
+  thegambia-vanity-coin-strategy.cfg: |
+    DATA_TYPE_A="fixed"
+    DATA_FEED_A_URL="1.0"
+
+    DATA_TYPE_B="fixed"
+    DATA_FEED_B_URL="1.0"
+
+    PRICE_TOLERANCE=0.0
+    AMOUNT_TOLERANCE=0.0
+
+    AMOUNT_OF_A_BASE=1.0
+
+    RATE_OFFSET_PERCENT=0.0
+    RATE_OFFSET=0.0
+    RATE_OFFSET_PERCENT_FIRST=true
+
+    [[LEVELS]]
+    SPREAD=0.001 # distance from mid price = 0.10%, i.e. bid/ask spread = 0.2%
+    AMOUNT=500.0   # multiple of base amount = 10.0 * 100 units of base asset
+
+    [[LEVELS]]
+    SPREAD=0.0011 # distance from mid price = 0.10%, i.e. bid/ask spread = 0.2%
+    AMOUNT=500.0   # multiple of base amount = 10.0 * 100 units of base asset
+---
+# Source: rivalcoins/charts/usa/templates/configMap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: usa-trader-config
+  namespace: mainnet
+data:
+  usa-countering-MONEY-trader.cfg: |
+    ASSET_CODE_A="USA"
+    ISSUER_A="GCQPF34D4NP66RYULISYRSBS52M5FFZ2JVJ4LMQTQXDI2XGP6UDSE3IB"
+
+    ASSET_CODE_B="MONEY"
+    ISSUER_B="GA2KQTETIRREL66P64GV6KCVICPULLDVHWJDZSIJKDLIAGBXUCIZ6P6E"
+
+    TICK_INTERVAL_SECONDS=300
+    MAX_TICK_DELAY_MILLIS=0
+    SUBMIT_MODE="both"
+    DELETE_CYCLES_THRESHOLD=0
+    FILL_TRACKER_SLEEP_MILLIS=150000
+    FILL_TRACKER_DELETE_CYCLES_THRESHOLD=0
+    HORIZON_URL="https://horizon.stellar.org"
+
+    [FEE]
+    CAPACITY_TRIGGER=0.8
+    PERCENTILE=90
+    MAX_OP_FEE_STROOPS=5000  
+  usa-vanity-coin-strategy.cfg: |
+    DATA_TYPE_A="fixed"
+    DATA_FEED_A_URL="1.0"
+
+    DATA_TYPE_B="fixed"
+    DATA_FEED_B_URL="1.0"
+
+    PRICE_TOLERANCE=0.0
+    AMOUNT_TOLERANCE=0.0
+
+    AMOUNT_OF_A_BASE=1.0
+
+    RATE_OFFSET_PERCENT=0.0
+    RATE_OFFSET=0.0
+    RATE_OFFSET_PERCENT_FIRST=true
+
+    [[LEVELS]]
+    SPREAD=0.001 # distance from mid price = 0.10%, i.e. bid/ask spread = 0.2%
+    AMOUNT=500.0   # multiple of base amount = 10.0 * 100 units of base asset
+
+    [[LEVELS]]
+    SPREAD=0.0011 # distance from mid price = 0.10%, i.e. bid/ask spread = 0.2%
+    AMOUNT=500.0   # multiple of base amount = 10.0 * 100 units of base asset
+---
+# Source: rivalcoins/charts/afghanistan/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rivalcoins-afghanistan
+  labels:
+    helm.sh/chart: afghanistan-0.1.0
+    app.kubernetes.io/name: afghanistan
+    app.kubernetes.io/instance: rivalcoins
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: afghanistan
+      app.kubernetes.io/instance: rivalcoins
+  template:
+    metadata:
+      annotations:
+        vault.hashicorp.com/agent-inject: "true"
+        vault.hashicorp.com/role: "afghanistan-mainnet"
+        vault.hashicorp.com/agent-inject-secret-stellar-source-account-seed.txt: "rivalcoins/mainnet/stellar-trade-bot/config"
+        vault.hashicorp.com/agent-inject-secret-trader-account-seed.txt: "rivalcoins/mainnet/afghanistan/config"
+        vault.hashicorp.com/agent-inject-template-trader-account-seed.txt: |
+          {{- with secret "rivalcoins/data/mainnet/afghanistan/config" -}}
+          TRADING_SECRET_SEED="{{ .Data.data.trader_account_seed }}"
+          {{- end -}}
+        checksum/config: 0cf31ce636d611c3db2cd098389df9156f696e40acec0fad9b703f871d71b1d0
+      labels:
+        app.kubernetes.io/name: afghanistan
+        app.kubernetes.io/instance: rivalcoins
+    spec:
+      serviceAccountName: afghanistan-stellar-vanity-coin
+      securityContext:
+        {}
+      nodeSelector:
+        doks.digitalocean.com/node-pool: pool-vanity-coins
+      containers:
+        - name: afghanistan-vanity-coin
+          securityContext:
+            {}
+          image: "registry.digitalocean.com/rivalcoins/vanity-coin-engine:v1.10.0"
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/bash"]
+          args:
+              - -c 
+              - >-
+                cd /vault/secrets &&
+                rm -f trader-config-secrets.txt &&
+                rm -f afghanistan-countering-MONEY-trader.cfg &&
+                cat trader-account-seed.txt >> trader-config-secrets.txt &&
+                echo "" >> trader-config-secrets.txt &&
+                echo "" >> trader-config-secrets.txt &&
+                cat trader-config-secrets.txt /var/lib/config/afghanistan-countering-MONEY-trader.cfg > afghanistan-countering-MONEY-trader.cfg &&
+                /bin/kelp trade --botConf /vault/secrets/afghanistan-countering-MONEY-trader.cfg \
+                  --strategy buysell \
+                  --stratConf /var/lib/config/afghanistan-vanity-coin-strategy.cfg \
+                  --no-headers
+          volumeMounts:
+          - name: config-volume
+            mountPath: /var/lib/config
+          resources:
+            requests:
+              cpu: 100m
+      imagePullSecrets:
+        - name: registry-rivalcoins
+      volumes:
+        - name: config-volume
+          configMap:
+            name: afghanistan-trader-config
+---
+# Source: rivalcoins/charts/canada/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rivalcoins-canada
+  labels:
+    helm.sh/chart: canada-0.1.0
+    app.kubernetes.io/name: canada
+    app.kubernetes.io/instance: rivalcoins
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: canada
+      app.kubernetes.io/instance: rivalcoins
+  template:
+    metadata:
+      annotations:
+        vault.hashicorp.com/agent-inject: "true"
+        vault.hashicorp.com/role: "canada-mainnet"
+        vault.hashicorp.com/agent-inject-secret-stellar-source-account-seed.txt: "rivalcoins/mainnet/stellar-trade-bot/config"
+        vault.hashicorp.com/agent-inject-secret-trader-account-seed.txt: "rivalcoins/mainnet/canada/config"
+        vault.hashicorp.com/agent-inject-template-trader-account-seed.txt: |
+          {{- with secret "rivalcoins/data/mainnet/canada/config" -}}
+          TRADING_SECRET_SEED="{{ .Data.data.trader_account_seed }}"
+          {{- end -}}
+        checksum/config: 5e8ca0f59d8286dae29f724c19a94fdea43efc188a7908e65cf89e2ea8e3a341
+      labels:
+        app.kubernetes.io/name: canada
+        app.kubernetes.io/instance: rivalcoins
+    spec:
+      serviceAccountName: canada-stellar-vanity-coin
+      securityContext:
+        {}
+      nodeSelector:
+        doks.digitalocean.com/node-pool: pool-vanity-coins
+      containers:
+        - name: canada-vanity-coin
+          securityContext:
+            {}
+          image: "registry.digitalocean.com/rivalcoins/vanity-coin-engine:v1.10.0"
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/bash"]
+          args:
+              - -c 
+              - >-
+                cd /vault/secrets &&
+                rm -f trader-config-secrets.txt &&
+                rm -f canada-countering-MONEY-trader.cfg &&
+                cat trader-account-seed.txt >> trader-config-secrets.txt &&
+                echo "" >> trader-config-secrets.txt &&
+                echo "" >> trader-config-secrets.txt &&
+                cat trader-config-secrets.txt /var/lib/config/canada-countering-MONEY-trader.cfg > canada-countering-MONEY-trader.cfg &&
+                /bin/kelp trade --botConf /vault/secrets/canada-countering-MONEY-trader.cfg \
+                  --strategy buysell \
+                  --stratConf /var/lib/config/canada-vanity-coin-strategy.cfg \
+                  --no-headers
+          volumeMounts:
+          - name: config-volume
+            mountPath: /var/lib/config
+          resources:
+            requests:
+              cpu: 100m
+      imagePullSecrets:
+        - name: registry-rivalcoins
+      volumes:
+        - name: config-volume
+          configMap:
+            name: canada-trader-config
+---
+# Source: rivalcoins/charts/china/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rivalcoins-china
+  labels:
+    helm.sh/chart: china-0.1.0
+    app.kubernetes.io/name: china
+    app.kubernetes.io/instance: rivalcoins
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: china
+      app.kubernetes.io/instance: rivalcoins
+  template:
+    metadata:
+      annotations:
+        vault.hashicorp.com/agent-inject: "true"
+        vault.hashicorp.com/role: "china-mainnet"
+        vault.hashicorp.com/agent-inject-secret-stellar-source-account-seed.txt: "rivalcoins/mainnet/stellar-trade-bot/config"
+        vault.hashicorp.com/agent-inject-secret-trader-account-seed.txt: "rivalcoins/mainnet/china/config"
+        vault.hashicorp.com/agent-inject-template-trader-account-seed.txt: |
+          {{- with secret "rivalcoins/data/mainnet/china/config" -}}
+          TRADING_SECRET_SEED="{{ .Data.data.trader_account_seed }}"
+          {{- end -}}
+        checksum/config: 3efa900bdebcc53244202ef2fe776514d6e24a6368a7d88fad244d46245cff93
+      labels:
+        app.kubernetes.io/name: china
+        app.kubernetes.io/instance: rivalcoins
+    spec:
+      serviceAccountName: china-stellar-vanity-coin
+      securityContext:
+        {}
+      nodeSelector:
+        doks.digitalocean.com/node-pool: pool-vanity-coins
+      containers:
+        - name: china-vanity-coin
+          securityContext:
+            {}
+          image: "registry.digitalocean.com/rivalcoins/vanity-coin-engine:v1.10.0"
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/bash"]
+          args:
+              - -c 
+              - >-
+                cd /vault/secrets &&
+                rm -f trader-config-secrets.txt &&
+                rm -f china-countering-MONEY-trader.cfg &&
+                cat trader-account-seed.txt >> trader-config-secrets.txt &&
+                echo "" >> trader-config-secrets.txt &&
+                echo "" >> trader-config-secrets.txt &&
+                cat trader-config-secrets.txt /var/lib/config/china-countering-MONEY-trader.cfg > china-countering-MONEY-trader.cfg &&
+                /bin/kelp trade --botConf /vault/secrets/china-countering-MONEY-trader.cfg \
+                  --strategy buysell \
+                  --stratConf /var/lib/config/china-vanity-coin-strategy.cfg \
+                  --no-headers
+          volumeMounts:
+          - name: config-volume
+            mountPath: /var/lib/config
+          resources:
+            requests:
+              cpu: 100m
+      imagePullSecrets:
+        - name: registry-rivalcoins
+      volumes:
+        - name: config-volume
+          configMap:
+            name: china-trader-config
+---
+# Source: rivalcoins/charts/illinois/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rivalcoins-illinois
+  labels:
+    helm.sh/chart: illinois-0.1.0
+    app.kubernetes.io/name: illinois
+    app.kubernetes.io/instance: rivalcoins
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: illinois
+      app.kubernetes.io/instance: rivalcoins
+  template:
+    metadata:
+      annotations:
+        vault.hashicorp.com/agent-inject: "true"
+        vault.hashicorp.com/role: "illinois-mainnet"
+        vault.hashicorp.com/agent-inject-secret-stellar-source-account-seed.txt: "rivalcoins/mainnet/stellar-trade-bot/config"
+        vault.hashicorp.com/agent-inject-secret-trader-account-seed.txt: "rivalcoins/mainnet/illinois/config"
+        vault.hashicorp.com/agent-inject-template-trader-account-seed.txt: |
+          {{- with secret "rivalcoins/data/mainnet/illinois/config" -}}
+          TRADING_SECRET_SEED="{{ .Data.data.trader_account_seed }}"
+          {{- end -}}
+        checksum/config: a73e5da7350f957e5120e0b0e5c2e414198e05b2900248447702a3a574973a9f
+      labels:
+        app.kubernetes.io/name: illinois
+        app.kubernetes.io/instance: rivalcoins
+    spec:
+      serviceAccountName: illinois-stellar-vanity-coin
+      securityContext:
+        {}
+      nodeSelector:
+        doks.digitalocean.com/node-pool: pool-vanity-coins
+      containers:
+        - name: illinois-vanity-coin
+          securityContext:
+            {}
+          image: "registry.digitalocean.com/rivalcoins/vanity-coin-engine:v1.10.0"
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/bash"]
+          args:
+              - -c 
+              - >-
+                cd /vault/secrets &&
+                rm -f trader-config-secrets.txt &&
+                rm -f illinois-countering-MONEY-trader.cfg &&
+                cat trader-account-seed.txt >> trader-config-secrets.txt &&
+                echo "" >> trader-config-secrets.txt &&
+                echo "" >> trader-config-secrets.txt &&
+                cat trader-config-secrets.txt /var/lib/config/illinois-countering-MONEY-trader.cfg > illinois-countering-MONEY-trader.cfg &&
+                /bin/kelp trade --botConf /vault/secrets/illinois-countering-MONEY-trader.cfg \
+                  --strategy buysell \
+                  --stratConf /var/lib/config/illinois-vanity-coin-strategy.cfg \
+                  --no-headers
+          volumeMounts:
+          - name: config-volume
+            mountPath: /var/lib/config
+          resources:
+            requests:
+              cpu: 100m
+      imagePullSecrets:
+        - name: registry-rivalcoins
+      volumes:
+        - name: config-volume
+          configMap:
+            name: illinois-trader-config
+---
+# Source: rivalcoins/charts/jeromebellsr/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rivalcoins-jeromebellsr
+  labels:
+    helm.sh/chart: jeromebellsr-0.1.0
+    app.kubernetes.io/name: jeromebellsr
+    app.kubernetes.io/instance: rivalcoins
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: jeromebellsr
+      app.kubernetes.io/instance: rivalcoins
+  template:
+    metadata:
+      annotations:
+        vault.hashicorp.com/agent-inject: "true"
+        vault.hashicorp.com/role: "jeromebellsr-mainnet"
+        vault.hashicorp.com/agent-inject-secret-stellar-source-account-seed.txt: "rivalcoins/mainnet/stellar-trade-bot/config"
+        vault.hashicorp.com/agent-inject-secret-trader-account-seed.txt: "rivalcoins/mainnet/jeromebellsr/config"
+        vault.hashicorp.com/agent-inject-template-trader-account-seed.txt: |
+          {{- with secret "rivalcoins/data/mainnet/jeromebellsr/config" -}}
+          TRADING_SECRET_SEED="{{ .Data.data.trader_account_seed }}"
+          {{- end -}}
+        checksum/config: dd314db33085f87d72c8aecd00946a9328614681273f1819724c7dc1abf9bbc9
+      labels:
+        app.kubernetes.io/name: jeromebellsr
+        app.kubernetes.io/instance: rivalcoins
+    spec:
+      serviceAccountName: jeromebellsr-stellar-vanity-coin
+      securityContext:
+        {}
+      nodeSelector:
+        doks.digitalocean.com/node-pool: pool-vanity-coins
+      containers:
+        - name: jeromebellsr-vanity-coin
+          securityContext:
+            {}
+          image: "registry.digitalocean.com/rivalcoins/vanity-coin-engine:v1.10.0"
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/bash"]
+          args:
+              - -c 
+              - >-
+                cd /vault/secrets &&
+                rm -f trader-config-secrets.txt &&
+                rm -f jeromebellsr-countering-MONEY-trader.cfg &&
+                cat trader-account-seed.txt >> trader-config-secrets.txt &&
+                echo "" >> trader-config-secrets.txt &&
+                echo "" >> trader-config-secrets.txt &&
+                cat trader-config-secrets.txt /var/lib/config/jeromebellsr-countering-MONEY-trader.cfg > jeromebellsr-countering-MONEY-trader.cfg &&
+                /bin/kelp trade --botConf /vault/secrets/jeromebellsr-countering-MONEY-trader.cfg \
+                  --strategy buysell \
+                  --stratConf /var/lib/config/jeromebellsr-vanity-coin-strategy.cfg \
+                  --no-headers
+          volumeMounts:
+          - name: config-volume
+            mountPath: /var/lib/config
+          resources:
+            requests:
+              cpu: 100m
+      imagePullSecrets:
+        - name: registry-rivalcoins
+      volumes:
+        - name: config-volume
+          configMap:
+            name: jeromebellsr-trader-config
+---
+# Source: rivalcoins/charts/jhumphrey/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rivalcoins-jhumphrey
+  labels:
+    helm.sh/chart: jhumphrey-0.1.0
+    app.kubernetes.io/name: jhumphrey
+    app.kubernetes.io/instance: rivalcoins
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: jhumphrey
+      app.kubernetes.io/instance: rivalcoins
+  template:
+    metadata:
+      annotations:
+        vault.hashicorp.com/agent-inject: "true"
+        vault.hashicorp.com/role: "jhumphrey-mainnet"
+        vault.hashicorp.com/agent-inject-secret-stellar-source-account-seed.txt: "rivalcoins/mainnet/stellar-trade-bot/config"
+        vault.hashicorp.com/agent-inject-secret-trader-account-seed.txt: "rivalcoins/mainnet/jhumphrey/config"
+        vault.hashicorp.com/agent-inject-template-trader-account-seed.txt: |
+          {{- with secret "rivalcoins/data/mainnet/jhumphrey/config" -}}
+          TRADING_SECRET_SEED="{{ .Data.data.trader_account_seed }}"
+          {{- end -}}
+        checksum/config: c9e9e951b561415da0b5978b7e983cbfcd1199858b9eb51b6bc276d1dd9629e2
+      labels:
+        app.kubernetes.io/name: jhumphrey
+        app.kubernetes.io/instance: rivalcoins
+    spec:
+      serviceAccountName: jhumphrey-stellar-vanity-coin
+      securityContext:
+        {}
+      nodeSelector:
+        doks.digitalocean.com/node-pool: pool-vanity-coins
+      containers:
+        - name: jhumphrey-vanity-coin
+          securityContext:
+            {}
+          image: "registry.digitalocean.com/rivalcoins/vanity-coin-engine:v1.10.0"
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/bash"]
+          args:
+              - -c 
+              - >-
+                cd /vault/secrets &&
+                rm -f trader-config-secrets.txt &&
+                rm -f jhumphrey-countering-MONEY-trader.cfg &&
+                cat trader-account-seed.txt >> trader-config-secrets.txt &&
+                echo "" >> trader-config-secrets.txt &&
+                echo "" >> trader-config-secrets.txt &&
+                cat trader-config-secrets.txt /var/lib/config/jhumphrey-countering-MONEY-trader.cfg > jhumphrey-countering-MONEY-trader.cfg &&
+                /bin/kelp trade --botConf /vault/secrets/jhumphrey-countering-MONEY-trader.cfg \
+                  --strategy buysell \
+                  --stratConf /var/lib/config/jhumphrey-vanity-coin-strategy.cfg \
+                  --no-headers
+          volumeMounts:
+          - name: config-volume
+            mountPath: /var/lib/config
+          resources:
+            requests:
+              cpu: 100m
+      imagePullSecrets:
+        - name: registry-rivalcoins
+      volumes:
+        - name: config-volume
+          configMap:
+            name: jhumphrey-trader-config
+---
+# Source: rivalcoins/charts/nmacedonia/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rivalcoins-nmacedonia
+  labels:
+    helm.sh/chart: nmacedonia-0.1.0
+    app.kubernetes.io/name: nmacedonia
+    app.kubernetes.io/instance: rivalcoins
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: nmacedonia
+      app.kubernetes.io/instance: rivalcoins
+  template:
+    metadata:
+      annotations:
+        vault.hashicorp.com/agent-inject: "true"
+        vault.hashicorp.com/role: "nmacedonia-mainnet"
+        vault.hashicorp.com/agent-inject-secret-stellar-source-account-seed.txt: "rivalcoins/mainnet/stellar-trade-bot/config"
+        vault.hashicorp.com/agent-inject-secret-trader-account-seed.txt: "rivalcoins/mainnet/nmacedonia/config"
+        vault.hashicorp.com/agent-inject-template-trader-account-seed.txt: |
+          {{- with secret "rivalcoins/data/mainnet/nmacedonia/config" -}}
+          TRADING_SECRET_SEED="{{ .Data.data.trader_account_seed }}"
+          {{- end -}}
+        checksum/config: bb11689da1371620091ac4b94707619d2ff1818d42f16107ad173f36391588dc
+      labels:
+        app.kubernetes.io/name: nmacedonia
+        app.kubernetes.io/instance: rivalcoins
+    spec:
+      serviceAccountName: nmacedonia-stellar-vanity-coin
+      securityContext:
+        {}
+      nodeSelector:
+        doks.digitalocean.com/node-pool: pool-vanity-coins
+      containers:
+        - name: nmacedonia-vanity-coin
+          securityContext:
+            {}
+          image: "registry.digitalocean.com/rivalcoins/vanity-coin-engine:v1.10.0"
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/bash"]
+          args:
+              - -c 
+              - >-
+                cd /vault/secrets &&
+                rm -f trader-config-secrets.txt &&
+                rm -f nmacedonia-countering-MONEY-trader.cfg &&
+                cat trader-account-seed.txt >> trader-config-secrets.txt &&
+                echo "" >> trader-config-secrets.txt &&
+                echo "" >> trader-config-secrets.txt &&
+                cat trader-config-secrets.txt /var/lib/config/nmacedonia-countering-MONEY-trader.cfg > nmacedonia-countering-MONEY-trader.cfg &&
+                /bin/kelp trade --botConf /vault/secrets/nmacedonia-countering-MONEY-trader.cfg \
+                  --strategy buysell \
+                  --stratConf /var/lib/config/nmacedonia-vanity-coin-strategy.cfg \
+                  --no-headers
+          volumeMounts:
+          - name: config-volume
+            mountPath: /var/lib/config
+          resources:
+            requests:
+              cpu: 100m
+      imagePullSecrets:
+        - name: registry-rivalcoins
+      volumes:
+        - name: config-volume
+          configMap:
+            name: nmacedonia-trader-config
+---
+# Source: rivalcoins/charts/primenation/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rivalcoins-primenation
+  labels:
+    helm.sh/chart: primenation-0.1.0
+    app.kubernetes.io/name: primenation
+    app.kubernetes.io/instance: rivalcoins
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: primenation
+      app.kubernetes.io/instance: rivalcoins
+  template:
+    metadata:
+      annotations:
+        vault.hashicorp.com/agent-inject: "true"
+        vault.hashicorp.com/role: "primenation-mainnet"
+        vault.hashicorp.com/agent-inject-secret-stellar-source-account-seed.txt: "rivalcoins/mainnet/stellar-trade-bot/config"
+        vault.hashicorp.com/agent-inject-secret-trader-account-seed.txt: "rivalcoins/mainnet/primenation/config"
+        vault.hashicorp.com/agent-inject-template-trader-account-seed.txt: |
+          {{- with secret "rivalcoins/data/mainnet/primenation/config" -}}
+          TRADING_SECRET_SEED="{{ .Data.data.trader_account_seed }}"
+          {{- end -}}
+        checksum/config: 8abb6841690b339079a5dd6a4ce854d1c3d56894a618103cdee4ebdfa3d5c7ca
+      labels:
+        app.kubernetes.io/name: primenation
+        app.kubernetes.io/instance: rivalcoins
+    spec:
+      serviceAccountName: primenation-stellar-vanity-coin
+      securityContext:
+        {}
+      nodeSelector:
+        doks.digitalocean.com/node-pool: pool-vanity-coins
+      containers:
+        - name: primenation-vanity-coin
+          securityContext:
+            {}
+          image: "registry.digitalocean.com/rivalcoins/vanity-coin-engine:v1.10.0"
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/bash"]
+          args:
+              - -c 
+              - >-
+                cd /vault/secrets &&
+                rm -f trader-config-secrets.txt &&
+                rm -f primenation-countering-MONEY-trader.cfg &&
+                cat trader-account-seed.txt >> trader-config-secrets.txt &&
+                echo "" >> trader-config-secrets.txt &&
+                echo "" >> trader-config-secrets.txt &&
+                cat trader-config-secrets.txt /var/lib/config/primenation-countering-MONEY-trader.cfg > primenation-countering-MONEY-trader.cfg &&
+                /bin/kelp trade --botConf /vault/secrets/primenation-countering-MONEY-trader.cfg \
+                  --strategy buysell \
+                  --stratConf /var/lib/config/primenation-vanity-coin-strategy.cfg \
+                  --no-headers
+          volumeMounts:
+          - name: config-volume
+            mountPath: /var/lib/config
+          resources:
+            requests:
+              cpu: 100m
+      imagePullSecrets:
+        - name: registry-rivalcoins
+      volumes:
+        - name: config-volume
+          configMap:
+            name: primenation-trader-config
+---
+# Source: rivalcoins/charts/sschluter/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rivalcoins-sschluter
+  labels:
+    helm.sh/chart: sschluter-0.1.0
+    app.kubernetes.io/name: sschluter
+    app.kubernetes.io/instance: rivalcoins
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: sschluter
+      app.kubernetes.io/instance: rivalcoins
+  template:
+    metadata:
+      annotations:
+        vault.hashicorp.com/agent-inject: "true"
+        vault.hashicorp.com/role: "sschluter-mainnet"
+        vault.hashicorp.com/agent-inject-secret-stellar-source-account-seed.txt: "rivalcoins/mainnet/stellar-trade-bot/config"
+        vault.hashicorp.com/agent-inject-secret-trader-account-seed.txt: "rivalcoins/mainnet/sschluter/config"
+        vault.hashicorp.com/agent-inject-template-trader-account-seed.txt: |
+          {{- with secret "rivalcoins/data/mainnet/sschluter/config" -}}
+          TRADING_SECRET_SEED="{{ .Data.data.trader_account_seed }}"
+          {{- end -}}
+        checksum/config: 86f41df023a04e6d68789a55fa03990d81237f752551c65f0eeeef6ea8c21a52
+      labels:
+        app.kubernetes.io/name: sschluter
+        app.kubernetes.io/instance: rivalcoins
+    spec:
+      serviceAccountName: sschluter-stellar-vanity-coin
+      securityContext:
+        {}
+      nodeSelector:
+        doks.digitalocean.com/node-pool: pool-vanity-coins
+      containers:
+        - name: sschluter-vanity-coin
+          securityContext:
+            {}
+          image: "registry.digitalocean.com/rivalcoins/vanity-coin-engine:v1.10.0"
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/bash"]
+          args:
+              - -c 
+              - >-
+                cd /vault/secrets &&
+                rm -f trader-config-secrets.txt &&
+                rm -f sschluter-countering-Illinois-trader.cfg &&
+                cat trader-account-seed.txt >> trader-config-secrets.txt &&
+                echo "" >> trader-config-secrets.txt &&
+                echo "" >> trader-config-secrets.txt &&
+                cat trader-config-secrets.txt /var/lib/config/sschluter-countering-Illinois-trader.cfg > sschluter-countering-Illinois-trader.cfg &&
+                /bin/kelp trade --botConf /vault/secrets/sschluter-countering-Illinois-trader.cfg \
+                  --strategy buysell \
+                  --stratConf /var/lib/config/sschluter-vanity-coin-strategy.cfg \
+                  --no-headers
+          volumeMounts:
+          - name: config-volume
+            mountPath: /var/lib/config
+          resources:
+            requests:
+              cpu: 100m
+      imagePullSecrets:
+        - name: registry-rivalcoins
+      volumes:
+        - name: config-volume
+          configMap:
+            name: sschluter-trader-config
+---
+# Source: rivalcoins/charts/thegambia/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rivalcoins-thegambia
+  labels:
+    helm.sh/chart: thegambia-0.1.0
+    app.kubernetes.io/name: thegambia
+    app.kubernetes.io/instance: rivalcoins
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: thegambia
+      app.kubernetes.io/instance: rivalcoins
+  template:
+    metadata:
+      annotations:
+        vault.hashicorp.com/agent-inject: "true"
+        vault.hashicorp.com/role: "thegambia-mainnet"
+        vault.hashicorp.com/agent-inject-secret-stellar-source-account-seed.txt: "rivalcoins/mainnet/stellar-trade-bot/config"
+        vault.hashicorp.com/agent-inject-secret-trader-account-seed.txt: "rivalcoins/mainnet/thegambia/config"
+        vault.hashicorp.com/agent-inject-template-trader-account-seed.txt: |
+          {{- with secret "rivalcoins/data/mainnet/thegambia/config" -}}
+          TRADING_SECRET_SEED="{{ .Data.data.trader_account_seed }}"
+          {{- end -}}
+        checksum/config: 8a2b64ff7aaf9d2eaef4c0dbe253aaa5332b4b378c14908f14ec95e2e0d9a97c
+      labels:
+        app.kubernetes.io/name: thegambia
+        app.kubernetes.io/instance: rivalcoins
+    spec:
+      serviceAccountName: thegambia-stellar-vanity-coin
+      securityContext:
+        {}
+      nodeSelector:
+        doks.digitalocean.com/node-pool: pool-vanity-coins
+      containers:
+        - name: thegambia-vanity-coin
+          securityContext:
+            {}
+          image: "registry.digitalocean.com/rivalcoins/vanity-coin-engine:v1.10.0"
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/bash"]
+          args:
+              - -c 
+              - >-
+                cd /vault/secrets &&
+                rm -f trader-config-secrets.txt &&
+                rm -f thegambia-countering-MONEY-trader.cfg &&
+                cat trader-account-seed.txt >> trader-config-secrets.txt &&
+                echo "" >> trader-config-secrets.txt &&
+                echo "" >> trader-config-secrets.txt &&
+                cat trader-config-secrets.txt /var/lib/config/thegambia-countering-MONEY-trader.cfg > thegambia-countering-MONEY-trader.cfg &&
+                /bin/kelp trade --botConf /vault/secrets/thegambia-countering-MONEY-trader.cfg \
+                  --strategy buysell \
+                  --stratConf /var/lib/config/thegambia-vanity-coin-strategy.cfg \
+                  --no-headers
+          volumeMounts:
+          - name: config-volume
+            mountPath: /var/lib/config
+          resources:
+            requests:
+              cpu: 100m
+      imagePullSecrets:
+        - name: registry-rivalcoins
+      volumes:
+        - name: config-volume
+          configMap:
+            name: thegambia-trader-config
+---
+# Source: rivalcoins/charts/usa/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rivalcoins-usa
+  labels:
+    helm.sh/chart: usa-0.1.0
+    app.kubernetes.io/name: usa
+    app.kubernetes.io/instance: rivalcoins
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: usa
+      app.kubernetes.io/instance: rivalcoins
+  template:
+    metadata:
+      annotations:
+        vault.hashicorp.com/agent-inject: "true"
+        vault.hashicorp.com/role: "usa-mainnet"
+        vault.hashicorp.com/agent-inject-secret-stellar-source-account-seed.txt: "rivalcoins/mainnet/stellar-trade-bot/config"
+        vault.hashicorp.com/agent-inject-secret-trader-account-seed.txt: "rivalcoins/mainnet/usa/config"
+        vault.hashicorp.com/agent-inject-template-trader-account-seed.txt: |
+          {{- with secret "rivalcoins/data/mainnet/usa/config" -}}
+          TRADING_SECRET_SEED="{{ .Data.data.trader_account_seed }}"
+          {{- end -}}
+        checksum/config: f3d72a44c17480bcf577312937f9dee10e4a9f61901009fdc8d68b47d9cdb92d
+      labels:
+        app.kubernetes.io/name: usa
+        app.kubernetes.io/instance: rivalcoins
+    spec:
+      serviceAccountName: usa-stellar-vanity-coin
+      securityContext:
+        {}
+      nodeSelector:
+        doks.digitalocean.com/node-pool: pool-vanity-coins
+      containers:
+        - name: usa-vanity-coin
+          securityContext:
+            {}
+          image: "registry.digitalocean.com/rivalcoins/vanity-coin-engine:v1.10.0"
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/bash"]
+          args:
+              - -c 
+              - >-
+                cd /vault/secrets &&
+                rm -f trader-config-secrets.txt &&
+                rm -f usa-countering-MONEY-trader.cfg &&
+                cat trader-account-seed.txt >> trader-config-secrets.txt &&
+                echo "" >> trader-config-secrets.txt &&
+                echo "" >> trader-config-secrets.txt &&
+                cat trader-config-secrets.txt /var/lib/config/usa-countering-MONEY-trader.cfg > usa-countering-MONEY-trader.cfg &&
+                /bin/kelp trade --botConf /vault/secrets/usa-countering-MONEY-trader.cfg \
+                  --strategy buysell \
+                  --stratConf /var/lib/config/usa-vanity-coin-strategy.cfg \
+                  --no-headers
+          volumeMounts:
+          - name: config-volume
+            mountPath: /var/lib/config
+          resources:
+            requests:
+              cpu: 100m
+      imagePullSecrets:
+        - name: registry-rivalcoins
+      volumes:
+        - name: config-volume
+          configMap:
+            name: usa-trader-config
+---
+# Source: rivalcoins/charts/afghanistan/templates/tests/test-connection.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "rivalcoins-afghanistan-test-connection"
+  labels:
+    helm.sh/chart: afghanistan-0.1.0
+    app.kubernetes.io/name: afghanistan
+    app.kubernetes.io/instance: rivalcoins
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['rivalcoins-afghanistan:80']
+  restartPolicy: Never
+---
+# Source: rivalcoins/charts/canada/templates/tests/test-connection.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "rivalcoins-canada-test-connection"
+  labels:
+    helm.sh/chart: canada-0.1.0
+    app.kubernetes.io/name: canada
+    app.kubernetes.io/instance: rivalcoins
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['rivalcoins-canada:80']
+  restartPolicy: Never
+---
+# Source: rivalcoins/charts/china/templates/tests/test-connection.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "rivalcoins-china-test-connection"
+  labels:
+    helm.sh/chart: china-0.1.0
+    app.kubernetes.io/name: china
+    app.kubernetes.io/instance: rivalcoins
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['rivalcoins-china:80']
+  restartPolicy: Never
+---
+# Source: rivalcoins/charts/illinois/templates/tests/test-connection.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "rivalcoins-illinois-test-connection"
+  labels:
+    helm.sh/chart: illinois-0.1.0
+    app.kubernetes.io/name: illinois
+    app.kubernetes.io/instance: rivalcoins
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['rivalcoins-illinois:80']
+  restartPolicy: Never
+---
+# Source: rivalcoins/charts/jeromebellsr/templates/tests/test-connection.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "rivalcoins-jeromebellsr-test-connection"
+  labels:
+    helm.sh/chart: jeromebellsr-0.1.0
+    app.kubernetes.io/name: jeromebellsr
+    app.kubernetes.io/instance: rivalcoins
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['rivalcoins-jeromebellsr:80']
+  restartPolicy: Never
+---
+# Source: rivalcoins/charts/jhumphrey/templates/tests/test-connection.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "rivalcoins-jhumphrey-test-connection"
+  labels:
+    helm.sh/chart: jhumphrey-0.1.0
+    app.kubernetes.io/name: jhumphrey
+    app.kubernetes.io/instance: rivalcoins
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['rivalcoins-jhumphrey:80']
+  restartPolicy: Never
+---
+# Source: rivalcoins/charts/nmacedonia/templates/tests/test-connection.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "rivalcoins-nmacedonia-test-connection"
+  labels:
+    helm.sh/chart: nmacedonia-0.1.0
+    app.kubernetes.io/name: nmacedonia
+    app.kubernetes.io/instance: rivalcoins
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['rivalcoins-nmacedonia:80']
+  restartPolicy: Never
+---
+# Source: rivalcoins/charts/primenation/templates/tests/test-connection.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "rivalcoins-primenation-test-connection"
+  labels:
+    helm.sh/chart: primenation-0.1.0
+    app.kubernetes.io/name: primenation
+    app.kubernetes.io/instance: rivalcoins
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['rivalcoins-primenation:80']
+  restartPolicy: Never
+---
+# Source: rivalcoins/charts/sschluter/templates/tests/test-connection.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "rivalcoins-sschluter-test-connection"
+  labels:
+    helm.sh/chart: sschluter-0.1.0
+    app.kubernetes.io/name: sschluter
+    app.kubernetes.io/instance: rivalcoins
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['rivalcoins-sschluter:80']
+  restartPolicy: Never
+---
+# Source: rivalcoins/charts/thegambia/templates/tests/test-connection.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "rivalcoins-thegambia-test-connection"
+  labels:
+    helm.sh/chart: thegambia-0.1.0
+    app.kubernetes.io/name: thegambia
+    app.kubernetes.io/instance: rivalcoins
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['rivalcoins-thegambia:80']
+  restartPolicy: Never
+---
+# Source: rivalcoins/charts/usa/templates/tests/test-connection.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "rivalcoins-usa-test-connection"
+  labels:
+    helm.sh/chart: usa-0.1.0
+    app.kubernetes.io/name: usa
+    app.kubernetes.io/instance: rivalcoins
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['rivalcoins-usa:80']
+  restartPolicy: Never

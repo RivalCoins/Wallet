@@ -1,0 +1,54 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageProjectUrl>https://rivalcoins.money/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/RivalCoins/Wallet</RepositoryUrl>
+    <Authors>Jerome Bell</Authors>
+    <Company>Rival Coins</Company>
+    <Product></Product>
+    <Description>SDK for the Rival Coins ecosystem</Description>
+    <Copyright>Copyright 2022</Copyright>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageTags>Stellar blockchain</PackageTags>
+    <AssemblyVersion>0.4.2</AssemblyVersion>
+    <FileVersion>0.4.2</FileVersion>
+    <Version>0.4.2-RC002</Version>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <PackageReleaseNotes>Added retrieval of Rival Coins infrastructure endpoints</PackageReleaseNotes>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Google.Protobuf" Version="3.21.7" />
+    <PackageReference Include="Grpc.Net.Client" Version="2.49.0" />
+    <PackageReference Include="Grpc.Tools" Version="2.49.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Serilog.Sinks.Console" Version="4.1.0" />
+    <PackageReference Include="stellar-dotnet-sdk" Version="9.0.54" />
+    <PackageReference Include="Tommy" Version="3.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SupportedPlatform Include="browser" />
+
+    <Protobuf Include="RivalCoinsServer.proto" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="icon.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+</Project>

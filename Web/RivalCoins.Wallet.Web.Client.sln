@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RivalCoins.Wallet.Web.Client", "RivalCoins.Wallet.Web.Client.csproj", "{00D425B9-8BAF-4BFF-9A0C-1A447C5F43C6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RivalCoins.Wallet.Web.Client", "RivalCoins.Wallet.Web.Client\RivalCoins.Wallet.Web.Client.csproj", "{957DA96B-8AD5-41D9-8DF2-73E30B3FBFB7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RivalCoins.Wallet.Web.Server", "RivalCoins.Wallet.Web.Server\RivalCoins.Wallet.Web.Server.csproj", "{84C655AD-EBAD-441D-B1E3-BDA78C25F42B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RivalCoins.Sdk", "..\sdk\RivalCoins.Sdk\RivalCoins.Sdk.csproj", "{C7C7746A-8B0B-4E97-8440-61B765DF8447}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +15,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{00D425B9-8BAF-4BFF-9A0C-1A447C5F43C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{00D425B9-8BAF-4BFF-9A0C-1A447C5F43C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{00D425B9-8BAF-4BFF-9A0C-1A447C5F43C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{00D425B9-8BAF-4BFF-9A0C-1A447C5F43C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{957DA96B-8AD5-41D9-8DF2-73E30B3FBFB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{957DA96B-8AD5-41D9-8DF2-73E30B3FBFB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{957DA96B-8AD5-41D9-8DF2-73E30B3FBFB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{957DA96B-8AD5-41D9-8DF2-73E30B3FBFB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84C655AD-EBAD-441D-B1E3-BDA78C25F42B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84C655AD-EBAD-441D-B1E3-BDA78C25F42B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84C655AD-EBAD-441D-B1E3-BDA78C25F42B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84C655AD-EBAD-441D-B1E3-BDA78C25F42B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7C7746A-8B0B-4E97-8440-61B765DF8447}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7C7746A-8B0B-4E97-8440-61B765DF8447}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7C7746A-8B0B-4E97-8440-61B765DF8447}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7C7746A-8B0B-4E97-8440-61B765DF8447}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

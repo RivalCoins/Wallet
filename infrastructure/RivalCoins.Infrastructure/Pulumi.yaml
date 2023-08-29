@@ -1,0 +1,3 @@
+name: RivalCoins.Infrastructure
+runtime: dotnet
+description: A minimal Kubernetes C# Pulumi program

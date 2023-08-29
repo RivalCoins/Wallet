@@ -1,0 +1,34 @@
+global:
+  horizonUrl: "https://horizon-testnet.stellar.org"
+  network: testnet
+  baseAssetCode: MONEY
+  baseAssetIssuer: GATQKJUFVVI36JYQQC75OOLRFI3BUNBT7ECJKXURNSK34HVIRSOMRRAY
+
+foobar:
+  assetId: foobar
+  assetCode: FooBar
+  assetIssuer: GDIDPQL6JIUIUBV6ZV6MLGM4DUDZEKL5CBMIKOPNCFOEGSGMSWMSVBT6
+
+jeromebellsr:
+  assetId: jeromebellsr
+  assetCode: JeromeBellSr
+  assetIssuer: GDIDPQL6JIUIUBV6ZV6MLGM4DUDZEKL5CBMIKOPNCFOEGSGMSWMSVBT6
+
+primenation:
+  assetId: primenation
+  assetCode: PrimeNation
+  assetIssuer: GACR5PTISBTW2OKIIMMO7JS3D3RRQSJANGKPFXQV6TTNSCGQHTMYXL3R
+
+illinois:
+  assetId: illinois
+  assetCode: Illinois
+  assetIssuer: GCXAWNGP3YSQLE7KPDWJMLEYRGYMRF4GOXVCEQX5E2P7M77LKNFCMPO2
+
+sschluter:
+  assetId: sschluter
+  assetCode: SSchluter
+  assetIssuer: GBKNA76KOWEHMS6WPO6ORY4TCORTOLHC6HL2WJY2INF7CMY4VWJ66IHL  
+  baseAssetCode: Illinois
+  baseAssetIssuer: GCXAWNGP3YSQLE7KPDWJMLEYRGYMRF4GOXVCEQX5E2P7M77LKNFCMPO2
+  level1Price: "0.0"
+  level2Price: "0.0000001"

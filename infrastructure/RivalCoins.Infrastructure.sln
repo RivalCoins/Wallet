@@ -1,0 +1,47 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33627.172
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RivalCoins.Infrastructure", "RivalCoins.Infrastructure\RivalCoins.Infrastructure.csproj", "{733457F6-91A3-4F26-9FB9-AA7A82739132}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RivalCoins.Infrastructure.Test", "RivalCoins.Infrastructure.Test\RivalCoins.Infrastructure.Test.csproj", "{363E6BA4-1B68-405A-87B4-3E2C8D8DBCE7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RivalCoins.Sdk.Test.Core", "..\sdk\RivalCoins.Sdk.Test.Core\RivalCoins.Sdk.Test.Core.csproj", "{033F095D-5D36-4DDB-A646-88BEA56EC4F6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{2F2E506C-45FD-4F00-BF3C-A928CCC2D260}"
+	ProjectSection(SolutionItems) = preProject
+		Infrastructure.md = Infrastructure.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E246D15D-10A0-41EE-B980-2F007D76E520}"
+	ProjectSection(SolutionItems) = preProject
+		helm-values.yaml = helm-values.yaml
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{733457F6-91A3-4F26-9FB9-AA7A82739132}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{733457F6-91A3-4F26-9FB9-AA7A82739132}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{733457F6-91A3-4F26-9FB9-AA7A82739132}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{733457F6-91A3-4F26-9FB9-AA7A82739132}.Release|Any CPU.Build.0 = Release|Any CPU
+		{363E6BA4-1B68-405A-87B4-3E2C8D8DBCE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{363E6BA4-1B68-405A-87B4-3E2C8D8DBCE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{363E6BA4-1B68-405A-87B4-3E2C8D8DBCE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{363E6BA4-1B68-405A-87B4-3E2C8D8DBCE7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{033F095D-5D36-4DDB-A646-88BEA56EC4F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{033F095D-5D36-4DDB-A646-88BEA56EC4F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{033F095D-5D36-4DDB-A646-88BEA56EC4F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{033F095D-5D36-4DDB-A646-88BEA56EC4F6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F707BCFF-4327-4438-896E-416490DCC52F}
+	EndGlobalSection
+EndGlobal

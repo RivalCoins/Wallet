@@ -1,0 +1,10 @@
+server:
+  affinity: ""
+  ha:
+    enabled: true
+    raft: 
+      enabled: true
+  dataStorage:
+    enabled: true
+    size: 500Mi
+    storageClass: csi-hostpath-sc

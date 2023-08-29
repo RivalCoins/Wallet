@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FakeItEasy" Version="7.3.1" />
+    <PackageReference Include="FluentAssertions" Version="6.7.0" />
+    <PackageReference Include="FsCheck.NUnit" Version="2.16.5" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.0" />
+    <PackageReference Include="NUnit" Version="3.13.3" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\sdk\RivalCoins.Sdk\RivalCoins.Sdk.csproj" />
+    <ProjectReference Include="..\RivalCoins.Airdrop.Api\RivalCoins.Airdrop.Api.csproj" />
+    <ProjectReference Include="..\RivalCoins.Airdrop.Test.Common\RivalCoins.Airdrop.Test.Common.csproj" />
+  </ItemGroup>
+
+</Project>

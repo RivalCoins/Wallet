@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: stellar-horizon-debug
+spec:
+  selector:
+    matchLabels:
+      app: stellar-horizon-debug
+  serviceName: "stellar-horizon-service"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: stellar-horizon-debug
+    spec:
+      containers:
+      - name: stellar-horizon-debug
+        image: registry.digitalocean.com/rivalcoins/rivalcoins-stellar-horizon:v0.1.1.5
+        # command: ["/bin/sleep","infinity"]
+        kcommand: ["/start"]
+        ports:
+        - containerPort: 8000
+        volumeMounts:
+        - mountPath: "/opt/stellar"
+          name: stellar-horizon-pvc
+      # initContainers:
+      #   - name: stellar-horizon-data-permission-fix
+      #     image: busybox
+      #     command: ["/bin/chmod","-R","777", "/data"]
+      #     volumeMounts:
+      #     - name: stellar-horizon-pvc
+      #       mountPath: /data          
+  volumeClaimTemplates:
+  - metadata:
+      name: stellar-horizon-pvc
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 5Gi
+      storageClassName: do-block-storage

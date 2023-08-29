@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "RivalCoinsServer": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Test"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "http://localhost:5123;https://localhost:7123"
+    }
+  }
+}

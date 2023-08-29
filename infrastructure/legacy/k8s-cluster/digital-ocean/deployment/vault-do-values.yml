@@ -1,0 +1,40 @@
+server:
+  nodeSelector: |
+    doks.digitalocean.com/node-pool: pool-vault
+  ha:
+    enabled: true
+    replicas: 3
+    raft:
+      enabled: true
+      config: |
+        ui = true
+        listener "tcp" {
+          tls_disable = 1
+          address = "[::]:8200"
+          cluster_address = "[::]:8201"
+        }
+        seal "azurekeyvault" {
+          tenant_id       = "CHANGEME"
+          client_id       = "CHANGEME"
+          client_secret   = "CHANGEME"
+          vault_name      = "CHANGEME"
+          key_name        = "CHANGEME"
+          subscription_id = "CHANGEME"
+        }
+
+        storage "raft" {
+          path = "/vault/data"
+        }
+        service_registration "kubernetes" {}
+  volumes:
+    - name: scripts
+      configMap:
+        name: add-vanity-coin
+        defaultMode: 0777
+  volumeMounts:
+    - name: scripts
+      mountPath: /var/lib/config
+  dataStorage:
+    enabled: true
+    size: 500Mi
+    storageClass: local-storage

@@ -1,0 +1,340 @@
+﻿@page "/"
+@using MudBlazor
+@using RivalCoins.Sdk
+@using RivalCoins.Sdk.Grpc
+@using stellar_dotnet_sdk
+@using stellar_dotnet_sdk.responses
+@using System.IO
+
+@inject IJSRuntime JS;
+@inject RivalCoinsService.RivalCoinsServiceClient RivalCoinsClient
+@inject Blazored.LocalStorage.ILocalStorageService LocalStorage
+@inject IRivalCoinsApp App
+@inject HttpClient Http
+
+<br />
+@if (false && _showPassword)
+{
+    <MudText>Your Password</MudText>
+    <input id="password" type="password" placeholder="Your Password" @bind="@Password" />
+    <br />
+    <br />
+}
+@if (_showLoginButton)
+{
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" @onclick="OnLogin">Login</MudButton>
+    <br />
+    <br />
+}
+@if (_showCreateWalletButton)
+{
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" @onclick="OnCreateWallet">Create Account</MudButton>
+    <br />
+    <br />
+}
+@if (_showAirDrop)
+{
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Filled.Download" @onclick="OnAirDrop">Get Fake MONEY!</MudButton>
+    <br />
+    <br />
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Filled.Download" @onclick="OnSyncFakeMoney">Sync Fake MONEY!</MudButton>
+    <br />
+    <br />
+}
+<MudButton Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Filled.Download" @onclick="OnSanityCheck">Sanity Check</MudButton>
+<br />
+<br />
+
+@if(false)
+{
+    <MudText>
+        Honor My Sales Tax Payment
+        <InputFile id="fileInput" OnChange="@LoadFiles" accept=".png" hidden multiple />
+
+        <MudButton HtmlTag="label"
+                   Variant="Variant.Filled"
+                   Color="Color.Primary"
+                   StartIcon="@Icons.Filled.CloudUpload"
+                   for="fileInput">
+            Upload Receipt
+        </MudButton>
+    </MudText>
+<br />
+<br />
+}
+<br/>
+<br/>
+<MudText>Debug: @Debug</MudText>
+<br />
+<br />
+<MudText>Address: @RecipientAddress</MudText>
+<br />
+<br />
+@foreach (var rivalCoin in _rivalCoinAssets)
+{
+@*    <MudNavLink Href="@(_trustlineUrl[rivalCoin.Asset.CanonicalName()])">@rivalCoin.Asset.Code()</MudNavLink>
+   <br/><br />
+*@}
+<br />
+<br />
+<MudText>Balances &nbsp; <MudButton @onclick="@(async () => await this.RefreshBalancesAsync())" Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Filled.Refresh" /></MudText>
+<MudPaper Width="300px" Square="true">
+    <MudList Clickable="true">
+        <MudListItem><MudText>Stellar Balance: @StellarBalance</MudText></MudListItem>
+        <MudDivider />
+        <MudListItem>
+            <MudText>Fake MONEY Balance: @FakeMoneyBalance</MudText>
+            </MudListItem>
+        <MudDivider />
+        <MudListItem><MudText>Fake USA Balance: @FakeUsaBalance</MudText></MudListItem>
+    </MudList>
+</MudPaper>
+<br/>
+<br/>
+<MudText>Rival Coins</MudText>
+<MudList Clickable="true">
+    @foreach (var rivalCoin in _swapOutCoins)
+    {
+        <MudListItem>
+            <img width="30" height="30" src="@rivalCoin.IconUri"/> @($"{rivalCoin.Name} - {rivalCoin.Quantity:N7}")
+        </MudListItem>
+        <MudDivider/>
+    }
+</MudList>
+<hr />
+<MudText>Swap Rival Coins!</MudText>
+<MudGrid>
+    <MudItem xs="12" sm="6">
+        <MudContainer>
+            <MudSelect T="RivalCoin" Label="Swap Out" @bind-Value=@SelectedSwapOut Variant="Variant.Outlined">
+                @foreach (var rivalCoin in _swapOutCoins)
+                {
+                    <MudSelectItem Value="@rivalCoin">
+                        <img width="30" height="30" src="@rivalCoin.IconUri"/> @($"{rivalCoin.Name}")
+                    </MudSelectItem>
+                }
+            </MudSelect>
+            <MudPaper Class="d-flex align-center justify-center mud-width-full py-8">@SelectedSwapOut?.Description</MudPaper>
+        </MudContainer>
+    </MudItem>
+    <MudItem xs="12" sm="6">
+        <MudContainer>
+            <MudSelect T="RivalCoin" Label="Swap In" @bind-Value=@SelectedSwapIn Variant="Variant.Outlined">
+                @foreach (var rivalCoin in _swapInCoins)
+                {
+                    <MudSelectItem Value="@rivalCoin">
+                        <img width="30" height="30" src="@rivalCoin.IconUri"/> @($"{rivalCoin.Name}")
+                    </MudSelectItem>
+                }
+            </MudSelect>
+            <MudPaper Class="d-flex align-center justify-center mud-width-full py-8">@SelectedSwapIn?.Description</MudPaper>
+        </MudContainer>
+    </MudItem>
+</MudGrid>
+<MudTextField T="double" Label="Amount" Variant="Variant.Outlined" Margin="Margin.Dense" @bind-Value=@_swapAmount></MudTextField>
+<MudButton Variant="Variant.Filled" Color="Color.Primary" @onclick="OnSwapCoins">Swap</MudButton>
+
+@code
+{
+    private string RecipientAddress { get; set; }
+    private string Debug { get; set; }
+    private string SignedTx { get; set; }
+    private string StellarBalance { get; set; }
+    private string FakeMoneyBalance { get; set; }
+    private string FakeUsaBalance { get; set; }
+    private bool _showCreateWalletButton;
+    private bool _showLoginButton;
+    private bool _showPassword;
+    private bool _showAirDrop;
+    private bool _showTaxHonoring;
+    private readonly List<RivalCoin> _swapOutCoins = new List<RivalCoin>();
+    private readonly List<RivalCoin> _swapInCoins = new List<RivalCoin>();
+    private readonly List<RivalCoin> _rivalCoinAssets = new List<RivalCoin>();
+    private List<RivalCoin> _swappableCoins = new List<RivalCoin>();
+    private RivalCoin SelectedSwapOut { get; set; }
+    private RivalCoin SelectedSwapIn { get; set; }
+    private double _swapAmount;
+    private AssetTypeCreditAlphaNum _fakeUSA;
+    private AssetTypeCreditAlphaNum _fakeMONEY;
+    private Wallet _wallet;
+    private Dictionary<string, string> _trustlineUrl = new Dictionary<string, string>();
+
+    private async void LoadFiles(InputFileChangeEventArgs e)
+    {
+        this.Debug = "Receiving Rival Coins' honor of your tax contribution...";
+
+        await this.App.GetTaxContributionHonorAsync(e.File.OpenReadStream());
+
+        this.Debug = "Received Rival Coins' honor of your tax contribution!";
+
+        await this.RefreshBalancesAsync();
+    }
+
+    private async Task<string> GetTrustlineUrlAsync(AssetTypeCreditAlphaNum asset)
+    {
+        return await this.JS.InvokeAsync<string>("getTrustlineLink", asset.Code, asset.Issuer, this.App.L1HorizonUrl, _wallet.NetworkInfo.NetworkPassphrase);
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        _wallet = new Wallet(this.App.L1HorizonUrl, null, this.App.HomeDomain);
+        await _wallet.InitializeAsync((await this.App.Initialize()) ?? "GDS7G3RBE3PW26D532LVZWIRI357BJFA66AP426BUNLDHR53LE2QOKFQ");
+
+        _showCreateWalletButton = false;
+        _showLoginButton = true;
+        _showPassword = true;
+
+        _ = this.LoadSwappableCoinsAsync();
+
+        var rivalCoinAssets = await Wallet.GetRivalCoinsAsync(this.App.HomeDomain);
+        _fakeUSA = rivalCoinAssets.FirstOrDefault(rivalCoin => rivalCoin.Asset.Code == "FakeUSA").Asset;
+        _fakeMONEY = rivalCoinAssets.FirstOrDefault(rivalCoin => rivalCoin.Asset.Code == "FakeMONEY").Asset;
+
+        foreach(var rivalCoinAsset in rivalCoinAssets)
+        {
+            _trustlineUrl.Add(rivalCoinAsset.Asset.CanonicalName(), await GetTrustlineUrlAsync(rivalCoinAsset.Asset));
+        }
+
+        _rivalCoinAssets.Clear();
+        _rivalCoinAssets.AddRange(rivalCoinAssets.Select(rivalCoin => new RivalCoin(rivalCoin.Name, rivalCoin.Asset, rivalCoin.Description, 0.0, string.Empty)));
+    }
+
+    private async Task LoadSwappableCoinsAsync()
+    {
+        _swappableCoins = new List<RivalCoin>(await this.App.GetSwappableCoinsAsync());
+
+        _swapInCoins.AddRange(_swappableCoins.Where(asset => asset.Asset.Code() != "USDC"));
+
+        base.StateHasChanged();
+    }
+
+    private async Task OnLogin()
+    {
+        this.RecipientAddress = await this.App.Initialize();
+        if(this.RecipientAddress != null)
+        {
+            _showLoginButton = _showPassword = false;
+            _showAirDrop = true;
+
+            await this.RefreshBalancesAsync();
+        }
+        return;
+
+        // ensure password entered
+        if (string.IsNullOrEmpty(this.Password))
+        {
+            this.Debug = "Please enter password!";
+            return;
+        }
+
+        var successfullLogin = await this.App.LoginUserAsync(this.Password);
+        if(successfullLogin)
+        {
+            _showLoginButton = _showPassword = false;
+
+            this.RecipientAddress = this.App.GetPublicAddress();
+
+            // restore wallet
+            var walletSuccessfullyRestored = await this.App.RestoreWalletAsync(this.Password);
+            if (walletSuccessfullyRestored)
+            {
+                // show balances
+                await this.RefreshBalancesAsync();
+            }
+        }
+    }
+
+    private async Task OnSwapCoins()
+    {
+        this.Debug = "Swapping coins...";
+        await this.App.SwapAysnc(this.SelectedSwapOut, this.SelectedSwapIn, _swapAmount);
+        this.Debug = "Coins swapped!";
+
+        this.Debug = "Refreshing balances...";
+        await this.RefreshBalancesAsync();
+        this.Debug = "Balances refreshed!";
+    }
+
+    private async Task RefreshBalancesAsync()
+    {
+        if(string.IsNullOrWhiteSpace(this.RecipientAddress))
+        {
+            return;
+        }
+
+        var balances = await this.App.GetBalancesAsync(this.RecipientAddress);
+
+        var xlmBalance = balances.First(balance => balance.AssetType == "native");
+        //var playUSABalance = balances.FirstOrDefault(balance => balance.Asset.CanonicalName() == _playUSA.CanonicalName());
+        var fakeMONEYBalance = balances.FirstOrDefault(balance => balance.Asset.CanonicalName() == _fakeMONEY.CanonicalName());
+
+        this.StellarBalance = double.Parse(xlmBalance.BalanceString).ToString("N7");
+        //this.PlayUsaBalance = double.Parse(playUSABalance?.BalanceString ?? 0.0.ToString()).ToString("N7");
+        this.FakeMoneyBalance = double.Parse(fakeMONEYBalance?.BalanceString ?? 0.0.ToString(), System.Globalization.CultureInfo.InvariantCulture).ToString("N7");
+
+        // update swap out coins
+        _swapOutCoins.Clear();
+        foreach (var balance in balances.Where(b => b != xlmBalance && double.Parse(b.BalanceString) != 0.0))
+        {
+            var swapOutCoin = _swappableCoins.FirstOrDefault(coin => coin.Asset.CanonicalName() == balance.Asset.CanonicalName());
+            if (swapOutCoin != null)
+            {
+                _swapOutCoins.Add(swapOutCoin with { Quantity = double.Parse(balance.BalanceString) });
+            }
+        }
+
+        _showCreateWalletButton = false;
+        _showTaxHonoring = true;
+
+        base.StateHasChanged();
+    }
+
+    private async Task OnPlayMoneyAirdrop()
+    {
+        await this.JS.InvokeVoidAsync(
+            "trustAsset",
+            this.RecipientAddress,
+            _fakeMONEY.Code,
+            _fakeMONEY.Issuer,
+            this.App.L1HorizonUrl,
+            this.App.L1NetworkPassphrase);
+    }
+
+    private async Task OnSanityCheck()
+    {
+        using var http = new HttpClient();
+        var output = await http.GetStringAsync("https://localhost:7123/foo");
+        Console.WriteLine(output);
+    }
+
+    private async Task OnAirDrop()
+    {
+        await this.App.AirDropAsync(this.SelectedSwapIn);
+        await RefreshBalancesAsync();
+    }
+
+    private async Task OnSyncFakeMoney()
+    {
+        await RefreshBalancesAsync();
+    }
+
+    private async Task OnCreateWallet()
+    {
+        // ensure password entered
+        if (string.IsNullOrEmpty(this.Password))
+        {
+            this.Debug = "Please enter password!";
+            return;
+        }
+
+        // show current balances
+        this.Debug = "Refreshing balances...";
+        await this.RefreshBalancesAsync();
+        this.Debug = "Balances refreshed!";
+
+        _showCreateWalletButton = _showLoginButton = _showPassword = false;
+        _showAirDrop = true;
+    }
+
+    public string? Password { get; set; }
+}

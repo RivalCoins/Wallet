@@ -1,0 +1,6 @@
+﻿installCRDS: true
+service.beta.kubernetes.io: false
+service.beta.kubernetes.io/do-loadbalancer-tls-passthrough: false
+controller:
+    publishService:
+        enabled: true

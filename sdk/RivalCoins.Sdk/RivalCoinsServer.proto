@@ -1,0 +1,51 @@
+﻿syntax = "proto3"; 
+// replace namespace with your own
+option csharp_namespace = "RivalCoins.Sdk.Grpc"; 
+package RivalCoinsSdk; 
+
+service RivalCoinsService {
+	rpc Swap(SwapRequest) returns (Transaction);
+	rpc Airdrop (AirDropRequest) returns (Success);
+	rpc CreateAirDropTransaction (AirDropRequest) returns (Transaction);
+	rpc SubmitAirDropTransaction (SignedTransaction) returns (Success);
+	rpc ReceiveTaxContributionHonor (TaxContributionInfo) returns (TaxContributionResponse);
+} 
+
+message SwapRequest {
+	string swapOut = 1;
+	string swapIn = 2;
+	string quantity = 3;
+	string user = 4;
+}
+
+message TaxContributionInfo {
+	bytes receipt = 1;
+	string accountId = 2;
+}
+
+message AirDropRequest {
+	string recipientAddress = 1;
+	string asset = 2;
+}
+
+message Transaction {
+	string unsignedXdr = 1;
+	string signedXdr = 2;
+	bool success = 3;
+	string message = 4;
+}
+
+message SignedTransaction {
+	string Xdr = 1;
+}
+
+message Success {
+	bool Success = 1;
+	string message = 2;
+}
+
+message TaxContributionResponse {
+	Success success = 1;
+	// An XDR containing Rival Coins' public honoring of the user's tax contribution, signed by Rival Coins.
+	string SignedXdr = 2;
+}

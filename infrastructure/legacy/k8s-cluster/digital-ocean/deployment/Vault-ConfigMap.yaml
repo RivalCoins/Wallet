@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: add-vanity-coin
+data:
+  update-k8s-config.sh: |
+    vault login
+    vault write auth/kubernetes/config \
+      token_reviewer_jwt="$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)" \
+      kubernetes_host="https://$KUBERNETES_PORT_443_TCP_ADDR:443" \
+      kubernetes_ca_cert=@/var/run/secrets/kubernetes.io/serviceaccount/ca.crt        
+  add-vanity-coin-secret.sh: |
+    DATE=$(date '+%Y%m%d')
+    read -p "Which network? (testnet | mainnet): " NETWORK
+    echo ""
+    read -p "Paste the asset code ID (not the asset code itself!): " ASSET_CODE_ID
+    echo ""
+    read -s -p "Paste the trader account seed: " TRADER_ACCOUNT_SEED
+    echo ""
+
+    vault login
+    
+    vault kv put rivalcoins/$NETWORK/$ASSET_CODE_ID/config trader_account_seed="$TRADER_ACCOUNT_SEED"
+
+    vault policy write $ASSET_CODE_ID-$NETWORK - <<EOF
+    path "rivalcoins/data/$NETWORK/stellar-trade-bot/config" {
+      capabilities = ["read"]
+    }
+    path "rivalcoins/data/$NETWORK/$ASSET_CODE_ID/config" {
+      capabilities = ["read"]
+    }
+    EOF
+
+    vault write auth/kubernetes/role/$ASSET_CODE_ID-$NETWORK \
+      bound_service_account_names=$ASSET_CODE_ID-stellar-vanity-coin \
+      bound_service_account_namespaces=$NETWORK \
+      policies=$ASSET_CODE_ID-$NETWORK
+
+    vault operator raft snapshot save /home/vault/$DATE-rivalcoins.snapshot

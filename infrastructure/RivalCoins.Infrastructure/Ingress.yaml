@@ -1,0 +1,61 @@
+﻿apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: rival-coins
+  annotations: #{}
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    acme.cert-manager.io/http01-edit-in-place: "true"
+    #nginx.org/server-snippets: |
+    #    location / {
+    #        proxy_set_header Host $host:8888;
+    #    }
+    #nginx.ingress.kubernetes.io/configuration-snippet: |
+        #proxy_set_header Host $host:$server_port;
+      #more_set_input_headers 'Host: horizon-test-ephemeral.rivalcoins.money';
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - horizon-test.rivalcoins.money
+    secretName: horizon-rivalcoins-money-tls
+  - hosts:
+    - api-test.rivalcoins.money
+    secretName: api-rivalcoins-money-tls
+  - hosts:
+    - wallet-test.rivalcoins.money
+    secretName: wallet-rivalcoins-money-tls
+  # - hosts:
+  #   - horizon-test-ephemeral.rivalcoins.money
+  #   secretName: horizon-ephemeral-rivalcoins-money-tls
+  rules:
+  - host: horizon-test.rivalcoins.money
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: stellar-core-l1
+            port:
+              number: 8000
+  - host: api-test.rivalcoins.money
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: api
+            port:
+              number: 8888
+  - host: wallet-test.rivalcoins.money
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: wallet
+            port:
+              number: 9010
