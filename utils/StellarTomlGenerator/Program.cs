@@ -1,9 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
 using RivalCoins.Sdk;
-using stellar_dotnet_sdk;
-using stellar_dotnet_sdk.xdr;
 using Tommy;
 
 using IHost host = Host.CreateDefaultBuilder(args).Build();
@@ -31,8 +30,8 @@ var documentation = new TomlTable
     { "ORG_NAME", "Rival Coins" },
     { "ORG_DBA", "Rival Coins" },
     { "ORG_URL", config["RIVALCOINS_HOME_DOMAIN"] },
-    { "ORG_LOGO", $"{config["RIVALCOINS_HOME_DOMAIN"]}//wp-content/uploads/2021/06/logo-500x500-1.png" },
-    { "ORG_DESCRIPTION", "Rival Coins is a global popularity contest between people, brands, ideas, causes, and more!" },
+    { "ORG_LOGO", $"{config["RIVALCOINS_HOME_DOMAIN"]}/wp-content/uploads/2021/06/logo-500x500-1.png" },
+    { "ORG_DESCRIPTION", "Rival Coins is putting YOU on the face of money, if Benjamin Franklin can be on a $100 bill, then why can’t you?" },
     { "ORG_PHYSICAL_ADDRESS", "Chicago, IL" },
     { "ORG_TWITTER", "RivalCoins" },
     { "ORG_OFFICIAL_EMAIL", "hello@rivalcoins.money" },
@@ -86,4 +85,4 @@ toml.WriteTo(sw);
 sw.WriteLine();
 rivalCoins.WriteTo(sw, "CURRENCIES");
 
-Console.WriteLine(sw.ToString());
+await File.WriteAllTextAsync($"{Util.OutputFolder}/stellar-{Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT")}.toml", sw.ToString());
