@@ -21,7 +21,7 @@ public static class Util
     private const double BaseReserve = 0.5;
     private const double AccountOperationalBuffer = 3.0;
 
-    private static string OutputFolder
+    public static string OutputFolder
     {
         get
         {

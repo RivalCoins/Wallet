@@ -5,7 +5,7 @@ using RivalCoins.Sdk;
 using Tommy;
 
 using IHost host = Host.CreateDefaultBuilder(args).Build();
-var config = host.Services.GetService<IConfiguration>();
+var config = host.Services.GetService<IConfiguration>()!;
 
 var toml = new TomlTable();
 using var sw = new StringWriter();
