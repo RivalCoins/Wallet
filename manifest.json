@@ -1,0 +1,15 @@
+{
+  "name": "Rival Coins Wallet",
+  "short_name": "Rival Coins",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#03173d",
+  "icons": [
+    {
+      "src": "icon-1500.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}
